@@ -1,10 +1,7 @@
 <div align="center">
 
-<img src="docs/banner.svg" alt="InfiPlot" width="100%">
-
 <p><b>为你实时生成的互动剧情游戏</b></p>
 
-<a href="https://opendeploy.dev/github/zonghaoyuan/infiplot"><img src="https://oss.opendeploy.dev/static/deploy-with-your-agent.svg" alt="Deploy with your agent" height="36"></a>
 
 [![Stars](https://img.shields.io/github/stars/zonghaoyuan/infiplot?style=flat-square)](https://github.com/zonghaoyuan/infiplot/stargazers)
 [![Watchers](https://img.shields.io/github/watchers/zonghaoyuan/infiplot?style=flat-square)](https://github.com/zonghaoyuan/infiplot/watchers)
@@ -23,7 +20,7 @@
 
 ## ⚡ 概览
 
-InfiPlot是一款AI实时生成内容的互动剧情游戏，这里没有预设好的剧情、角色，所有内容都根据你的需求定制化的生成。
+一款AI实时生成内容的互动剧情游戏，这里没有预设好的剧情、角色，所有内容都根据你的需求定制化的生成。
 
 用一句话说，我们要做的是一款用AI实时生成内容的《完蛋！我被美女包围了！》
 
@@ -44,13 +41,6 @@ InfiPlot是一款AI实时生成内容的互动剧情游戏，这里没有预设�
 - **AI 配音** — 每个角色拥有独特声线，支持小米 MiMo（免费）和 StepFun（付费高品质）
 - **风格自由** — 火柴人、赛博朋克、水彩、漫画......任意风格都能生成
 
----
-
-## 🌐 在线体验
-
-免费在线试玩，无需本地部署：[infiplot.com](https://infiplot.com)
-
----
 
 ## 🎬 Demo
 
@@ -81,7 +71,7 @@ InfiPlot是一款AI实时生成内容的互动剧情游戏，这里没有预设�
 
 ## 工作原理
 
-基于文本、图像和音频模型，我们搭建了一个多智能体框架来实现InfiPlot的目标。我们把agent分为编剧、角色设计师、场景布置师和画家四个职能，让他们之间相互配合，在保证剧情连贯性、角色一致性、场景一致性的基础上，尽可能使得剧情足够富有吸引力。其中编剧同时负责剧情的整体架构规划。
+基于文本、图像和音频模型，我们搭建了一个多智能体框架来实现。我们把agent分为编剧、角色设计师、场景布置师和画家四个职能，让他们之间相互配合，在保证剧情连贯性、角色一致性、场景一致性的基础上，尽可能使得剧情足够富有吸引力。其中编剧同时负责剧情的整体架构规划。
 
 我们把每一次游玩的整体体验称为故事（story）。
 
@@ -101,7 +91,7 @@ InfiPlot是一款AI实时生成内容的互动剧情游戏，这里没有预设�
 
 ## 部署
 
-InfiPlot 支持多种部署方式。个人使用推荐 Vercel 一键部署；想部署到自己的服务器或本地运行，可以用 Docker。
+支持多种部署方式。个人使用推荐 Vercel 一键部署；想部署到自己的服务器或本地运行，可以用 Docker。
 
 ### OpenDeploy / Vercel / Cloudflare（一键部署）
 
@@ -141,7 +131,7 @@ docker compose up -d
 
 ## 配置教程
 
-InfiPlot 会与四类模型供应商通信。**文本（Text）和视觉（Vision）** 只走 OpenAI 兼容接口——想用 Google Gemini 的话，把 `*_BASE_URL` 指向其 OpenAI 兼容端点（`https://generativelanguage.googleapis.com/v1beta/openai`）即可；想用 Anthropic Claude 的话，推荐通过兼容网关（如 LiteLLM）转发，官方 OpenAI 兼容层不支持缓存，可能推高成本与延迟。**图像（Image）** 支持 **Runware**（其自有 task-array 协议）与 **OpenAI**（`gpt-image`）。**语音（TTS）** 支持**小米 MiMo**（自有的音色设计/克隆协议——支持角色级音色设计、克隆与逐行演绎指导，免费）和 **StepFun 阶跃星辰**（32 个预设音色，由 AI 自动匹配，付费但体验更好）。
+会与四类模型供应商通信。**文本（Text）和视觉（Vision）** 只走 OpenAI 兼容接口——想用 Google Gemini 的话，把 `*_BASE_URL` 指向其 OpenAI 兼容端点（`https://generativelanguage.googleapis.com/v1beta/openai`）即可；想用 Anthropic Claude 的话，推荐通过兼容网关（如 LiteLLM）转发，官方 OpenAI 兼容层不支持缓存，可能推高成本与延迟。**图像（Image）** 支持 **Runware**（其自有 task-array 协议）与 **OpenAI**（`gpt-image`）。**语音（TTS）** 支持**小米 MiMo**（自有的音色设计/克隆协议——支持角色级音色设计、克隆与逐行演绎指导，免费）和 **StepFun 阶跃星辰**（32 个预设音色，由 AI 自动匹配，付费但体验更好）。
 
 ### 1. 选择你的供应商
 
@@ -215,28 +205,6 @@ InfiPlot 会与四类模型供应商通信。**文本（Text）和视觉（Visio
 - [ ] 自定义角色卡与世界观
 - [ ] Prompt 缓存命中率优化
 
----
-
-## 团队与愿景
-
-我们是一群来自清华大学、兰州大学等高校的年轻人。
-
-一方面，我们本来就是galgame、乙女游戏、FMV、AI角色扮演游戏这类游戏的深度用户，在享受游戏体验的同时，也会想象如果能选择不被预设的剧情选项，或者和对话的AI角色深度互动而不只是通过聊天软件聊天，该是多么愉快刺激的体验。
-
-另一方面，我们恰好又对大模型技术有些了解，能用AI快速实现想法，对技术路线和基于已有技术的产品能力边界有一些浅薄的思考。
-
-契机发生在 2026 年 4 月 22 日，[@zan2434](https://x.com/zan2434) 等人发布了 [flipbook](https://flipbook.page/)，我们对这种全新的交互形态感到震惊和欣喜。
-于是在 5 月的某一天，我们一拍即合，决定做一款这样的产品，既帮助大家满足那些曾经遗憾过的幻想，又能够探索多模态模型所带来的新的交互形态。
-
-目前我们的项目还很早期，有许多功能尚不完善，欢迎提交 [issues](https://github.com/zonghaoyuan/infiplot/issues) 反馈问题，或者加入我们的开发团队一起探索新的可能性，满足你的好奇心。
-
-联系方式：hi@infiplot.com
-
-欢迎扫码加入 **InfiPlot 公测交流群**（QQ 群号 `575404333`），一起反馈体验、参与共建：
-
-<img src="public/qq-group.webp" alt="InfiPlot 公测交流群 QQ 二维码" width="200" />
-
----
 
 ## Star 趋势
 
