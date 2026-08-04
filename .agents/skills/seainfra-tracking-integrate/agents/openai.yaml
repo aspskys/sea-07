@@ -1,0 +1,4 @@
+interface:
+  display_name: "SeaInfra 埋点接入"
+  short_description: "申请并校验星合客户端与服务端配置，再编排多端埋点接入"
+  default_prompt: "使用 $seainfra-tracking-integrate 申请配置并接入客户端和服务端埋点。"

@@ -6,6 +6,9 @@ build
 out
 *.tsbuildinfo
 
+# Pre-formal payment order store (local single-node only)
+.data/
+
 .env
 .env.local
 .env.*.local

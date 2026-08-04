@@ -1,0 +1,4 @@
+interface:
+  display_name: "SeaInfra 支付验收"
+  short_description: "逐渠道验证星河凭证、渠道权限、支付回调和幂等发货闭环"
+  default_prompt: "使用 $seainfra-payment-check 验收当前项目的星河支付接入。"

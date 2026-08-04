@@ -1,11 +1,87 @@
 import OpenAI from "openai";
-import type { ChatStreamResult, ChatStreamUsage, ProviderConfig } from "@infiplot/types";
+import type {
+  ChatStreamResult,
+  ChatStreamUsage,
+  ProviderConfig,
+  TextLlmProtocol,
+} from "@infiplot/types";
 import { normalizeBaseUrl } from "./normalizeUrl";
 
 export type ChatMessage = {
   role: "system" | "user" | "assistant";
   content: string;
 };
+
+function resolveTextProtocol(config: ProviderConfig): TextLlmProtocol {
+  return config.textProtocol ?? "openai_chat_completions";
+}
+
+/** Split system prompts into Responses `instructions`; rest become `input`. */
+function splitForResponses(messages: ChatMessage[]): {
+  instructions?: string;
+  input: string | Array<{ role: "user" | "assistant"; content: string }>;
+} {
+  const systems: string[] = [];
+  const rest: Array<{ role: "user" | "assistant"; content: string }> = [];
+  for (const m of messages) {
+    if (m.role === "system") {
+      if (m.content.trim()) systems.push(m.content);
+      continue;
+    }
+    rest.push({
+      role: m.role === "assistant" ? "assistant" : "user",
+      content: m.content,
+    });
+  }
+  const instructions =
+    systems.length > 0 ? systems.join("\n\n") : undefined;
+  if (rest.length === 0) {
+    return { instructions, input: "" };
+  }
+  const only = rest[0];
+  if (rest.length === 1 && only && only.role === "user" && !instructions) {
+    return { input: only.content };
+  }
+  return { instructions, input: rest };
+}
+
+function extractResponsesText(response: {
+  output_text?: string;
+  output?: Array<{
+    type?: string;
+    content?: Array<{ type?: string; text?: string }>;
+  }>;
+}): string {
+  if (typeof response.output_text === "string" && response.output_text.length > 0) {
+    return response.output_text;
+  }
+  const parts: string[] = [];
+  for (const item of response.output ?? []) {
+    if (item?.type !== "message") continue;
+    for (const c of item.content ?? []) {
+      if (
+        (c?.type === "output_text" || c?.type === "text") &&
+        typeof c.text === "string"
+      ) {
+        parts.push(c.text);
+      }
+    }
+  }
+  return parts.join("");
+}
+
+function clientTimeoutSignal(timeoutMs: number | undefined): {
+  signal?: AbortSignal;
+  clear: () => void;
+} {
+  if (!timeoutMs || timeoutMs <= 0) return { clear: () => {} };
+  const controller = new AbortController();
+  const timer = setTimeout(() => controller.abort(), timeoutMs);
+  return {
+    signal: controller.signal,
+    clear: () => clearTimeout(timer),
+  };
+}
 
 // ── CORS proxy fallback (browser-only) ───────────────────────────────
 // BYO mode calls providers directly from the browser. When a provider
@@ -82,9 +158,15 @@ function makeCorsAwareFetch(
 // (tokens written to the cache on a cold pass), so unlike the old AI SDK
 // path we can show the hit rate but not the create cost. cached_tokens lives
 // directly on the SDK's CompletionUsage type — no cast needed.
+type UsageSummary = {
+  prompt_tokens?: number;
+  completion_tokens?: number;
+  prompt_tokens_details?: { cached_tokens?: number | null } | null;
+};
+
 function summarizeSdkUsage(
   tag: string,
-  usage: OpenAI.Completions.CompletionUsage | undefined,
+  usage: UsageSummary | undefined,
 ): string {
   if (!usage) return `[cache] ${tag} no-usage`;
   const input = usage.prompt_tokens ?? 0;
@@ -115,25 +197,67 @@ export async function chat(
     tag?: string;
   },
 ): Promise<string> {
-  const client = makeClient(config);
-
-  const completion = await client.chat.completions.create({
-    model: config.model,
-    messages: messages.map((m) => ({
-      role: m.role as "system" | "user" | "assistant",
-      content: m.content,
-    })),
-    temperature: opts?.temperature ?? 0.9,
-    stream: false,
-  });
-
-  const text = completion.choices[0]?.message?.content ?? "";
-  console.log(summarizeSdkUsage(opts?.tag ?? "chat", completion.usage ?? undefined));
-
-  if (text.length === 0) {
-    throw new Error(`Chat API returned no content.`);
+  const protocol = resolveTextProtocol(config);
+  if (protocol === "anthropic_messages") {
+    throw new Error(
+      "TEXT protocol anthropic_messages is not implemented in this adapter; re-run SeaInfra protocol probe and select a supported OpenAI protocol.",
+    );
   }
-  return text;
+
+  const client = makeClient(config);
+  const tag = opts?.tag ?? "chat";
+  const { signal, clear } = clientTimeoutSignal(config.timeoutMs);
+
+  try {
+    if (protocol === "openai_responses") {
+      // Non-streaming only — SeaInfra probe covers non-stream Responses shape.
+      const { instructions, input } = splitForResponses(messages);
+      const response = await client.responses.create(
+        {
+          model: config.model,
+          input,
+          ...(instructions ? { instructions } : {}),
+          temperature: opts?.temperature ?? 0.9,
+        },
+        signal ? { signal } : undefined,
+      );
+      const text = extractResponsesText(response);
+      const usage = response.usage
+        ? {
+            prompt_tokens: response.usage.input_tokens ?? 0,
+            completion_tokens: response.usage.output_tokens ?? 0,
+          }
+        : undefined;
+      console.log(summarizeSdkUsage(`${tag}:responses`, usage));
+      if (text.length === 0) {
+        throw new Error(`Responses API returned no content.`);
+      }
+      return text;
+    }
+
+    const completion = await client.chat.completions.create(
+      {
+        model: config.model,
+        messages: messages.map((m) => ({
+          role: m.role as "system" | "user" | "assistant",
+          content: m.content,
+        })),
+        temperature: opts?.temperature ?? 0.9,
+        stream: false,
+      },
+      signal ? { signal } : undefined,
+    );
+
+    const text = completion.choices[0]?.message?.content ?? "";
+    console.log(summarizeSdkUsage(tag, completion.usage ?? undefined));
+
+    if (text.length === 0) {
+      throw new Error(`Chat API returned no content.`);
+    }
+    return text;
+  } finally {
+    clear();
+  }
 }
 
 /**
@@ -159,6 +283,7 @@ export function chatStream(
     tag?: string;
   },
 ): ChatStreamResult {
+  const protocol = resolveTextProtocol(config);
   const client = makeClient(config);
   const tag = opts?.tag ?? "chatStream";
   const msgPayload = messages.map((m) => ({
@@ -170,6 +295,24 @@ export function chatStream(
   const usage = new Promise<ChatStreamUsage | undefined>((r) => { resolveUsage = r; });
 
   const textStream = (async function* (): AsyncIterable<string> {
+    // Responses streaming was not covered by SeaInfra probe — degrade to
+    // one-shot non-streaming so progressive UI still gets a complete reply
+    // without claiming unsupported stream semantics.
+    if (protocol === "openai_responses" || protocol === "anthropic_messages") {
+      try {
+        const text = await chat(config, messages, {
+          temperature: opts?.temperature,
+          tag: `${tag}:probe-unverified-stream`,
+        });
+        if (text) yield text;
+        resolveUsage!(undefined);
+      } catch (err) {
+        resolveUsage!(undefined);
+        throw err;
+      }
+      return;
+    }
+
     try {
       const stream = await client.chat.completions.create({
         model: config.model,

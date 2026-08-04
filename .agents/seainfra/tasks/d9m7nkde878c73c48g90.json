@@ -1,0 +1,12 @@
+{
+  "taskId": "d9m7nkde878c73c48g90",
+  "model": "alibaba_qwen_image_2_0",
+  "capability": "image_generate",
+  "status": "completed",
+  "createdAt": "2026-07-31T10:41:29.262Z",
+  "updatedAt": "2026-07-31T10:41:29.263Z",
+  "resultUrls": [
+    "https://image.cdn2.seaart.me/2026-07-31/d9m7nkde878c73c48g90/4af4bd618b65608b7ed5469a1b9349a8.webp"
+  ],
+  "businessRef": "multimodal-final-check"
+}

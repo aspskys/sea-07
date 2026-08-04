@@ -1,0 +1,4 @@
+interface:
+  display_name: "SeaInfra 搜索推荐验收"
+  short_description: "验证数据同步证据、推荐场景接口、关联埋点以及真实业务闭环"
+  default_prompt: "使用 $seainfra-search-recommend-check 验收当前项目的 SeaInfra 搜索推荐接入。"

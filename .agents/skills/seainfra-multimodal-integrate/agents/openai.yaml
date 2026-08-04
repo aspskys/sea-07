@@ -1,0 +1,4 @@
+interface:
+  display_name: "SeaInfra 多模态接入"
+  short_description: "使用实时模型目录和 schema 接入 Sea SDK 多模态异步任务"
+  default_prompt: "使用 $seainfra-multimodal-integrate 为当前项目接入 SeaInfra 多模态能力。"

@@ -1,0 +1,73 @@
+{
+  "method": "platform_api",
+  "checked_at": "2026-08-03T10:51:57.113Z",
+  "endpoint": "/open_api/payment/method_list",
+  "client_id": "XF11rze2EAA17iA2glvnCa4",
+  "gateway_base_url": "https://publish-gateway.sc-api.saconsole.com",
+  "requested_channels": [
+    "Adyen",
+    "PayPal"
+  ],
+  "enabled_channels": [
+    "PayerMax",
+    "APPSTORE",
+    "GOOGLEPLAY"
+  ],
+  "missing_channels": [
+    "Adyen",
+    "PayPal"
+  ],
+  "create_order": {
+    "ok": true,
+    "business_type": 1,
+    "order_status": 1,
+    "is_sandbox": 2,
+    "charged": false,
+    "sys_order_id_prefix": "014000016a…",
+    "cp_order_id_prefix": "CHK_msd40g1v…"
+  },
+  "method_list": {
+    "ok": true,
+    "body_keys_used": [
+      "client_id",
+      "sys_order_id"
+    ],
+    "method_count": 3,
+    "methods": [
+      {
+        "payment_method_id": "PAYERMAX_Card_2020302955340632064",
+        "channel_hint": [
+          "PayerMax"
+        ],
+        "title": "Debit/Credit Card",
+        "channel_type": 4,
+        "provider": null
+      },
+      {
+        "payment_method_id": "PAYERMAX_ApplePay_2020304166865342464",
+        "channel_hint": [
+          "PayerMax",
+          "APPSTORE"
+        ],
+        "title": "Apple Pay",
+        "channel_type": 4,
+        "provider": null
+      },
+      {
+        "payment_method_id": "PAYERMAX_GooglePay_2020304285727723520",
+        "channel_hint": [
+          "PayerMax",
+          "GOOGLEPLAY"
+        ],
+        "title": "Google Pay",
+        "channel_type": 4,
+        "provider": null
+      }
+    ],
+    "no_order_code": 20000,
+    "no_order_method_count": 3
+  },
+  "platform_confirmation_ref": "key-backed Open API method_list against production gateway with DemoX client_id",
+  "evidence_ref": ".agents/seainfra/evidence/payment-channel-check-2026-08-03T10-51-57-115Z.json",
+  "ok": false
+}

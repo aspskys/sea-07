@@ -1,0 +1,4 @@
+interface:
+  display_name: "SeaInfra 多模态验收"
+  short_description: "验证实时模型 schema、任务持久化、有界轮询和结果访问控制"
+  default_prompt: "使用 $seainfra-multimodal-check 验收当前项目的 SeaInfra 多模态接入。"

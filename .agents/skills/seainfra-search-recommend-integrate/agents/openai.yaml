@@ -1,0 +1,4 @@
+interface:
+  display_name: "SeaInfra 搜索推荐接入"
+  short_description: "先完成数据同步，再执行搜索推荐收集、提交、业务实现和埋点透传"
+  default_prompt: "使用 $seainfra-search-recommend-integrate 为当前项目完成 SeaInfra 搜索推荐接入。"

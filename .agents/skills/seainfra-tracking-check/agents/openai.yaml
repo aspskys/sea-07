@@ -1,0 +1,4 @@
+interface:
+  display_name: "SeaInfra 埋点验收"
+  short_description: "逐事件验证星合配置、真实上报、接收统计和数据落库结果"
+  default_prompt: "使用 $seainfra-tracking-check 验收当前项目的星合数据埋点接入。"

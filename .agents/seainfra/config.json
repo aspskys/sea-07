@@ -1,0 +1,620 @@
+{
+  "schemaVersion": 1,
+  "activeEnvironment": "test",
+  "project": {
+    "root": ".",
+    "targets": [
+      {
+        "name": "infiplot-web",
+        "kind": "web+api",
+        "stack": "Next.js 16 / React 19 / TypeScript / pnpm",
+        "evidence": [
+          "package.json name=infiplot, next, react, openai",
+          "app/api: start,scene,vision,beat-audio,tts-provider,...",
+          "lib/ai-client, lib/tts-client, lib/engine multi-agent",
+          "lib/analytics.ts Umami (not Conan)",
+          "lib/supabase + migrations",
+          "deploy: vercel.json, wrangler.jsonc, open-next"
+        ],
+        "notes": "AI interactive visual novel; client-carried Session; server stateless."
+      }
+    ]
+  },
+  "sources": {
+    "llm": [
+      {
+        "type": "probe",
+        "location": ".agents/seainfra/probes/llm-test-2026-07-30T13-51-43-573Z.json",
+        "scope": "test environment non-streaming openai_responses supported probe"
+      },
+      {
+        "type": "reference",
+        "location": "https://platform.openai.com/docs/api-reference/responses/create",
+        "scope": "OpenAI Responses API official contract"
+      },
+      {
+        "type": "skill",
+        "location": ".agents/skills/seainfra-llm-integrate/SKILL.md",
+        "scope": "LLM protocol probe gate and integrate workflow"
+      },
+      {
+        "type": "skill",
+        "location": ".agents/skills/seainfra-llm-check/SKILL.md",
+        "scope": "LLM acceptance checks"
+      }
+    ],
+    "multimodal": [
+      {
+        "type": "skill",
+        "location": ".agents/skills/seainfra-multimodal-integrate/SKILL.md",
+        "scope": "Sea SDK modal integrate"
+      },
+      {
+        "type": "reference",
+        "location": ".agents/skills/seainfra-multimodal-integrate/references/sea-ai-gateway-contract.md",
+        "scope": "catalog schema task contract"
+      },
+      {
+        "type": "probe",
+        "location": ".agents/seainfra/probes/modal-skill-alibaba_qwen_image_2_0.md",
+        "scope": "getModelSkill schema for alibaba_qwen_image_2_0"
+      },
+      {
+        "type": "skill",
+        "location": ".agents/skills/seainfra-multimodal-check/SKILL.md",
+        "scope": "multimodal acceptance"
+      },
+      {
+        "type": "probe",
+        "location": ".agents/seainfra/tasks",
+        "scope": "live create/get probes for alibaba_qwen_audio_3_tts_plus (skill 404)"
+      },
+      {
+        "type": "probe",
+        "location": ".agents/seainfra/probes/modal-skill-mureka_tts.md",
+        "scope": "getModelSkill schema for mureka_tts"
+      },
+      {
+        "type": "probe",
+        "location": ".agents/seainfra/tasks/d9m7nf5e878c7383rr5g.json",
+        "scope": "successful mureka_tts create/wait after fix"
+      }
+    ],
+    "content_safety": [
+      {
+        "type": "skill",
+        "location": ".agents/skills/seainfra-content-safety-integrate/SKILL.md",
+        "scope": "Sea SDK content safety integrate"
+      },
+      {
+        "type": "reference",
+        "location": ".agents/skills/seainfra-content-safety-integrate/references/sea-sdk-contract.md",
+        "scope": "official scan methods and completion fields"
+      },
+      {
+        "type": "skill",
+        "location": ".agents/skills/seainfra-content-safety-check/SKILL.md",
+        "scope": "content safety acceptance"
+      }
+    ],
+    "data_sync": [
+      {
+        "type": "user",
+        "location": "user-provided 2026-08-03",
+        "scope": "remote demox PostgreSQL at 10.185.48.12:5432"
+      },
+      {
+        "type": "implementation",
+        "location": "/Users/aspskys/works/demo-x origin/main project/prisma/schema.prisma",
+        "scope": "schema to initialize on demox"
+      },
+      {
+        "type": "skill",
+        "location": ".agents/skills/seainfra-data-sync-integrate/SKILL.md",
+        "scope": "integrate"
+      },
+      {
+        "type": "skill",
+        "location": ".agents/skills/seainfra-data-sync-check/SKILL.md",
+        "scope": "check completion criteria"
+      }
+    ],
+    "tracking": [
+      {
+        "type": "skill",
+        "location": ".agents/skills/seainfra-tracking-integrate/SKILL.md",
+        "scope": "orchestration"
+      },
+      {
+        "type": "skill",
+        "location": ".agents/skills/seainfra-tracking-client-integrate/SKILL.md",
+        "scope": "web client Conan"
+      },
+      {
+        "type": "skill",
+        "location": ".agents/skills/seainfra-tracking-check/SKILL.md",
+        "scope": "acceptance"
+      },
+      {
+        "type": "reference",
+        "location": ".agents/skills/seainfra-tracking-integrate/references/platform-config.md",
+        "scope": "StarUnion config JSON"
+      },
+      {
+        "type": "implementation",
+        "location": "lib/analytics.ts",
+        "scope": "existing Umami privacy analytics (not StarUnion)"
+      },
+      {
+        "type": "user",
+        "location": "user message 2026-08-03 client+server StarUnion JSON DemoX production",
+        "scope": "CLIENT_STARUNION_CONFIG + SERVER_STARUNION_CONFIG stage=production project DemoX"
+      },
+      {
+        "type": "user",
+        "location": "user message: tracking pre-formal may use provided production-stage DemoX JSON",
+        "scope": "pre-formal authorization to proceed without stage=release"
+      },
+      {
+        "type": "user",
+        "location": "user message 2026-08-03 test project closure decisions",
+        "scope": "tracking report loop accepted for test; search wait 鸣人 API; pay create_order unpaid stop; ads defer 天宇拉卡拉"
+      }
+    ],
+    "payment": [
+      {
+        "type": "skill",
+        "location": "cashier-integration",
+        "scope": "application, channel, implementation and acceptance routing"
+      },
+      {
+        "type": "implementation",
+        "location": "project/src/lib/payment",
+        "scope": "verified demo-X Web implementation"
+      },
+      {
+        "type": "user",
+        "location": "/Users/aspskys/Library/Containers/com.tencent.WeWorkMac/Data/Documents/Profiles/36B86A6BAAC51DE1B78C7F927E289BA6/Caches/Files/2026-07/cc70f6dd51befda2ebd5c6b2bc0e70f5/星云配置文档（生产环境）.md",
+        "scope": "production 发行支付 client/server keys + jwt + doc centre link"
+      },
+      {
+        "type": "implementation",
+        "location": "/Users/aspskys/works/demo-x/project/.env.production",
+        "scope": "gateway_base_url + sdk_src for same client_id DemoX production app"
+      },
+      {
+        "type": "reference",
+        "location": "https://doc-center.center-private-production.staruniongame.com/848675ca-ffa3-474c-ba78-edaa8c0ae904/catalogue",
+        "scope": "平台接入文档（文档中心）"
+      },
+      {
+        "type": "user",
+        "location": "user message 2026-08-03 payment business fields",
+        "scope": "callback_base_url=https://seachat.ai business_types=one_time channels=Adyen,PayPal"
+      },
+      {
+        "type": "user",
+        "location": "user message 2026-08-03 test project closure decisions",
+        "scope": "tracking report loop accepted for test; search wait 鸣人 API; pay create_order unpaid stop; ads defer 天宇拉卡拉"
+      }
+    ],
+    "search_recommend": [
+      {
+        "type": "skill",
+        "location": ".agents/skills/seainfra-search-recommend-integrate/SKILL.md",
+        "scope": "integrate orchestration"
+      },
+      {
+        "type": "reference",
+        "location": ".agents/skills/seainfra-search-recommend-integrate/references/intake-contract.md",
+        "scope": "intake contract"
+      },
+      {
+        "type": "implementation",
+        "location": "bigdata_config/table-mapping.md",
+        "scope": "SKU table mapping"
+      },
+      {
+        "type": "user",
+        "location": "user confirmation plan A 2026-08-03",
+        "scope": "all intake fields confirmed"
+      },
+      {
+        "type": "user",
+        "location": "user message 2026-08-03 test project closure decisions",
+        "scope": "tracking report loop accepted for test; search wait 鸣人 API; pay create_order unpaid stop; ads defer 天宇拉卡拉"
+      }
+    ],
+    "ads_acquisition": [
+      {
+        "type": "skill",
+        "location": "ads-data-query",
+        "scope": "post-integration AppsFlyer data verification only"
+      },
+      {
+        "type": "reference",
+        "location": ".agents/skills/seainfra-tracking-client-integrate/references/report-api.md",
+        "scope": "web attribution parameters and conversion events only"
+      },
+      {
+        "type": "user",
+        "location": "user message 2026-08-03 test project closure decisions",
+        "scope": "tracking report loop accepted for test; search wait 鸣人 API; pay create_order unpaid stop; ads defer 天宇拉卡拉"
+      }
+    ]
+  },
+  "environments": {
+    "test": {
+      "llm": {
+        "base_url": "https://openresty-gateway.gpu-service.dev.seaart.dev/llm",
+        "api_key": "sa-26adade2d262e0bc962143949e7c3e0c349eeed9a408bd02",
+        "model": "gpt-5.5",
+        "timeout_ms": 30000,
+        "protocol": "openai_responses",
+        "protocol_probe": ".agents/seainfra/probes/llm-test-2026-07-30T13-51-43-573Z.json"
+      },
+      "multimodal": {
+        "base_url": "https://openresty-gateway.gpu-service.dev.seaart.dev/llm",
+        "api_key": "sa-26adade2d262e0bc962143949e7c3e0c349eeed9a408bd02",
+        "capabilities": [
+          "image_generate",
+          "tts"
+        ],
+        "models": {
+          "image_generate": "alibaba_qwen_image_2_0",
+          "tts": "mureka_tts"
+        },
+        "notes": {
+          "image_model": "alibaba_qwen_image_2_0",
+          "tts_model": "mureka_tts",
+          "tts_fixed_at": "2026-07-31T10:41:20.066Z",
+          "tts_success_task": "d9m7nf5e878c7383rr5g",
+          "schema_refs": [
+            ".agents/seainfra/probes/modal-skill-alibaba_qwen_image_2_0.md",
+            ".agents/seainfra/probes/modal-skill-mureka_tts.md"
+          ]
+        }
+      },
+      "content_safety": {
+        "base_url": "https://openresty-gateway.gpu-service.dev.seaart.dev/llm",
+        "api_key": "sa-26adade2d262e0bc962143949e7c3e0c349eeed9a408bd02",
+        "content_types": [
+          "text",
+          "image",
+          "video"
+        ],
+        "policy": "用户输入与生成图均审核；高风险拦截；超时 fail-closed"
+      },
+      "data_sync": {
+        "database_type": "postgresql",
+        "database": "demox",
+        "objects": [
+          "DigitalHuman",
+          "DigitalHumanTranslation",
+          "User",
+          "chat_message",
+          "payment_event",
+          "payment_fulfillment",
+          "payment_order"
+        ],
+        "gcp_project": null,
+        "username": "demox_user",
+        "password": "c4XaMcGQ8hiZOmlCDaNtGIdFNRZftUdD",
+        "connection_url": "postgresql://demox_user:c4XaMcGQ8hiZOmlCDaNtGIdFNRZftUdD@10.185.48.12:5432/demox",
+        "read_only": true,
+        "network_access": "public",
+        "warehouse_engine": "redshift",
+        "target_prefix": "sync_"
+      },
+      "tracking": {
+        "surfaces": [
+          "client",
+          "server"
+        ],
+        "client_config": {
+          "stage": "production",
+          "project_key": "e8ca9389d25f5b782f99006f2113fe4d",
+          "project_name": "DemoX",
+          "created_time": "2026-07-25 10:43:52",
+          "type": "client_identity",
+          "agent_uri": "https://agent-server.sc-api.seaart.ai",
+          "sign_uri": "https://open-gateway.sc-api.saconsole.com",
+          "sign_key": "XY23haJt33vQt17372qv9dCbi",
+          "sign_pub_key": "-----BEGIN PUBLIC KEY-----\nMIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCyRZMO2llKmWHIFfjbRb02fypJ\n+RpNZsLSKAGVT5hIZh2zB8dOWodidpWPSpHaB4dW2AOIOu80NRu3JyX07ilTjo67\nvGtgokrAKrH6d98pULhdAhMuNFcDlW/T4uqllkUyF4DUXpomIqDZjVAZb8BnO/v1\nBuyeeU7ayScx5Ca6cwIDAQAB\n-----END PUBLIC KEY-----\n",
+          "aes_id": "XY13ha2v2wtqz17372qv8Dhen",
+          "aes_key": "6zq71UxzI211UXv908L86SSpyyHM4Ai",
+          "aes_secret": "f07ec0a215da6b226cb316cbf8d8f81336be40b934ac1b4af604d64b77575cb1",
+          "im_gateway": [
+            "https://im-gateway.sc-api.saconsole.com",
+            "https://starrycloud-aiart-im-gateway.akamaized.net"
+          ],
+          "open_gateway": [
+            "https://open-gateway.sc-api.saconsole.com",
+            "https://starrycloud-aiart-open-gateway.akamaized.net"
+          ],
+          "socket_urls": [
+            "im-conn.sc-api.saconsole.com",
+            "starrycloud-aiart-im-conn.akamaized.net"
+          ]
+        },
+        "server_config": {
+          "stage": "production",
+          "project_key": "e8ca9389d25f5b782f99006f2113fe4d",
+          "project_name": "DemoX",
+          "created_time": "2026-07-25 10:44:23",
+          "type": "client_identity",
+          "agent_uri": "https://agent-server.sc-api.seaart.ai",
+          "sign_uri": "https://open-gateway.sc-api.saconsole.com",
+          "sign_key": "XY23haJt33vQt17372qv9dCbi",
+          "sign_pub_key": "-----BEGIN PUBLIC KEY-----\nMIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCyRZMO2llKmWHIFfjbRb02fypJ\n+RpNZsLSKAGVT5hIZh2zB8dOWodidpWPSpHaB4dW2AOIOu80NRu3JyX07ilTjo67\nvGtgokrAKrH6d98pULhdAhMuNFcDlW/T4uqllkUyF4DUXpomIqDZjVAZb8BnO/v1\nBuyeeU7ayScx5Ca6cwIDAQAB\n-----END PUBLIC KEY-----\n",
+          "v_sign_key": "XY33haw0hQIq717372qvfGodb",
+          "v_sign_pub_key": "-----BEGIN PUBLIC KEY-----\nMIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCmSLUsirPRz3CEyVfsK7oBRESW\nUxV1OUw5WmapSVOVUynafF3K7MAA19Z0vEjayqJDbVCHuvzBtEKyI2Fh9QlUz4Xg\nTk9SNMBOO2OT3+bCLbs/mlfSHWZ3GplBDw3sAPW67DuPMRheE313D3WhHHuw33MF\nrRZOvGf1Sto2gi0cVwIDAQAB\n-----END PUBLIC KEY-----\n",
+          "aes_id": "XY13ha2v2wtqz17372qv8Dhen",
+          "aes_key": "6zq71UxzI211UXv908L86SSpyyHM4Ai",
+          "aes_secret": "f07ec0a215da6b226cb316cbf8d8f81336be40b934ac1b4af604d64b77575cb1"
+        },
+        "notes": "User authorized pre-formal testing with DemoX stage=production StarUnion JSON. Formal project will re-provision stage=release for SeaInfra test and separate production. Do not treat this as formal test env acceptance."
+      },
+      "payment": {
+        "gateway_base_url": "https://publish-gateway.sc-api.saconsole.com",
+        "client_id": "XF11rze2EAA17iA2glvnCa4",
+        "client_key": "XB13hPp4ufzBp17iA2gmg0h06",
+        "client_pubkey": "-----BEGIN PUBLIC KEY-----\nMIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQDYkVGArnOn+1qO4SySZhqCyorm\nHUsZZHFBxhGHDiALZiFEJHObfACNlXD6kgfV/mVCPUpiMJZ4r2tUTwacX76hRTZ8\nWanGzH9DuhMDIaEmpuCT6E4BvciXbzMst4UXMVt3j6hOxuxG62la7jDSFoOXoM8d\nVWSL4KUb2lrvBC9B3QIDAQAB\n-----END PUBLIC KEY-----",
+        "jwt_pubkey": "-----BEGIN PUBLIC KEY-----\nMIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQDktW/C7AxrtDWdpk8vkChNavK3\nAKfUyUGuFQtr2eXy7E8srOpZIFX+peiVHkr2mqGfV3SNvebTxnI1rf9fgEd40jki\nxYsqaws/1wzLL47HO6NznaMZx1gkpgU4DmB7TkT8XRMKalfXUwW2IGRg2AJWvy7R\nuUSWFjovcSxLBl8E3wIDAQAB\n-----END PUBLIC KEY-----",
+        "server_key": "XB23hP5TIKZUE17iA2gmtebDm",
+        "server_pubkey": "-----BEGIN PUBLIC KEY-----\nMIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCsofXjlfsLkvlP5z2JX2/r00mr\nb0ilA/vFg+qps7hQeIRNpjh7pcrk8zPG0KHvVoatrE8L8b6wcdaWqrDRiX9PfYUp\nGMspRWWgQbC0D8IYNS0YpvMu4Q3l6PWpZb3vA7PHDVpjLjX+lgWnhw3yQ0PjjL6Q\nEZuWZWIonBUop5gqNQIDAQAB\n-----END PUBLIC KEY-----",
+        "signing_key": "XB23hP5TIKZUE17iA2gmtebDm",
+        "public_key": "-----BEGIN PUBLIC KEY-----\nMIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCsofXjlfsLkvlP5z2JX2/r00mr\nb0ilA/vFg+qps7hQeIRNpjh7pcrk8zPG0KHvVoatrE8L8b6wcdaWqrDRiX9PfYUp\nGMspRWWgQbC0D8IYNS0YpvMu4Q3l6PWpZb3vA7PHDVpjLjX+lgWnhw3yQ0PjjL6Q\nEZuWZWIonBUop5gqNQIDAQAB\n-----END PUBLIC KEY-----",
+        "sdk_src": "https://seaart-publish.sc-api.saconsole.com/payment-sdk/client.js",
+        "callback_base_url": "https://seachat.ai",
+        "business_types": [
+          "one_time"
+        ],
+        "channels": [
+          "Adyen",
+          "PayPal"
+        ],
+        "notes": {
+          "doc": "星云配置文档（生产环境）.md",
+          "gateway_sdk_source": "demo-x project .env.production same client_id",
+          "platform_doc": "https://doc-center.center-private-production.staruniongame.com/848675ca-ffa3-474c-ba78-edaa8c0ae904/catalogue",
+          "pre_formal": "User using production payment app for pre-formal testing (same as demo-x).",
+          "test_closure": "create_order success, unpaid; test project stops here (user 2026-08-03)"
+        },
+        "channel_check": {
+          "method": "platform_api",
+          "checked_at": "2026-08-03T10:51:57.113Z",
+          "enabled_channels": [
+            "PayerMax",
+            "APPSTORE",
+            "GOOGLEPLAY"
+          ],
+          "evidence_ref": ".agents/seainfra/evidence/payment-channel-check-2026-08-03T10-51-57-115Z.json",
+          "platform_confirmation_ref": "key-backed Open API method_list against production gateway with DemoX client_id",
+          "notes": "missing: Adyen,PayPal; methods observed: PayerMax,APPSTORE,GOOGLEPLAY"
+        }
+      },
+      "search_recommend": {
+        "project_id": "demox",
+        "scenes": [
+          "home_featured"
+        ],
+        "submission_url": "https://moreshort-recommender-strategy-recall-data-update.gpu-api.seaart.dev/rec-prd-bot/integration-intakes",
+        "intake": {
+          "confirmedAt": "2026-08-03T08:23:09.857Z",
+          "user_credential": {
+            "type": "account_no",
+            "source": "User.id"
+          },
+          "sku_source": {
+            "business_table": "demox.public.DigitalHuman",
+            "big_data_table": "demox.public.sync_DigitalHuman",
+            "mapping_source": "table-mapping.md,data-sync-config.md"
+          },
+          "sku_eligibility": {
+            "condition": "(\"featuredOrder\" IS NOT NULL OR \"communityOrder\" IS NOT NULL)"
+          },
+          "sku_fields": {
+            "sku_id": {
+              "field": "DigitalHuman.id",
+              "meaning": "数字人主键，映射为 obj_id"
+            },
+            "text_info": [
+              {
+                "field": "DigitalHumanTranslation.title",
+                "meaning": "数字人标题"
+              },
+              {
+                "field": "DigitalHumanTranslation.description",
+                "meaning": "数字人简介"
+              },
+              {
+                "field": "DigitalHuman.tags",
+                "meaning": "标签数组"
+              }
+            ],
+            "img_info": [
+              {
+                "field": "DigitalHuman.imagePath",
+                "meaning": "主图路径/URL"
+              }
+            ]
+          },
+          "core_behavior": {
+            "name": "chat",
+            "definition": "用户向数字人发送聊天消息，落库 chat_message（user_id/device_id + agent_name + created_at）"
+          },
+          "hot_sku": {
+            "core_metric": "聊天次数",
+            "metric_definition": null,
+            "time_window": {
+              "type": "rolling_days",
+              "days": 7,
+              "description": "最近 7 天"
+            }
+          },
+          "metrics": [
+            {
+              "name": "访问量",
+              "source": "DigitalHuman.visitCount"
+            },
+            {
+              "name": "消息数",
+              "source": "DigitalHuman.messageCount"
+            },
+            {
+              "name": "内容新鲜度",
+              "source": "DigitalHuman.contentUpdatedAt"
+            }
+          ]
+        },
+        "requirement_ids": {
+          "home_featured": "BIZ20260803085030E4B8"
+        },
+        "business_detail_id": "BIZ20260803085030E4B8",
+        "intake_submitted_at": "2026-08-03T08:50:42.731Z",
+        "intake_response_path": ".agents/seainfra/intakes/demox-home_featured.response.json"
+      },
+      "ads_acquisition": {
+        "provider": null,
+        "app_id": null,
+        "credentials": null,
+        "platforms": [],
+        "conversion_events": []
+      }
+    },
+    "production": {
+      "llm": {
+        "base_url": null,
+        "api_key": null,
+        "model": null,
+        "timeout_ms": 30000,
+        "protocol": null,
+        "protocol_probe": null
+      },
+      "multimodal": {
+        "base_url": null,
+        "api_key": null,
+        "capabilities": [],
+        "models": {}
+      },
+      "content_safety": {
+        "base_url": null,
+        "api_key": null,
+        "content_types": [],
+        "policy": null
+      },
+      "data_sync": {
+        "database_type": null,
+        "database": null,
+        "objects": [],
+        "gcp_project": null,
+        "username": null,
+        "password": null,
+        "connection_url": null,
+        "read_only": null,
+        "network_access": null,
+        "warehouse_engine": "redshift",
+        "target_prefix": "sync_"
+      },
+      "tracking": {
+        "surfaces": [
+          "client",
+          "server"
+        ],
+        "client_config": {
+          "stage": "production",
+          "project_key": "e8ca9389d25f5b782f99006f2113fe4d",
+          "project_name": "DemoX",
+          "created_time": "2026-07-25 10:43:52",
+          "type": "client_identity",
+          "agent_uri": "https://agent-server.sc-api.seaart.ai",
+          "sign_uri": "https://open-gateway.sc-api.saconsole.com",
+          "sign_key": "XY23haJt33vQt17372qv9dCbi",
+          "sign_pub_key": "-----BEGIN PUBLIC KEY-----\nMIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCyRZMO2llKmWHIFfjbRb02fypJ\n+RpNZsLSKAGVT5hIZh2zB8dOWodidpWPSpHaB4dW2AOIOu80NRu3JyX07ilTjo67\nvGtgokrAKrH6d98pULhdAhMuNFcDlW/T4uqllkUyF4DUXpomIqDZjVAZb8BnO/v1\nBuyeeU7ayScx5Ca6cwIDAQAB\n-----END PUBLIC KEY-----\n",
+          "aes_id": "XY13ha2v2wtqz17372qv8Dhen",
+          "aes_key": "6zq71UxzI211UXv908L86SSpyyHM4Ai",
+          "aes_secret": "f07ec0a215da6b226cb316cbf8d8f81336be40b934ac1b4af604d64b77575cb1",
+          "im_gateway": [
+            "https://im-gateway.sc-api.saconsole.com",
+            "https://starrycloud-aiart-im-gateway.akamaized.net"
+          ],
+          "open_gateway": [
+            "https://open-gateway.sc-api.saconsole.com",
+            "https://starrycloud-aiart-open-gateway.akamaized.net"
+          ],
+          "socket_urls": [
+            "im-conn.sc-api.saconsole.com",
+            "starrycloud-aiart-im-conn.akamaized.net"
+          ]
+        },
+        "server_config": {
+          "stage": "production",
+          "project_key": "e8ca9389d25f5b782f99006f2113fe4d",
+          "project_name": "DemoX",
+          "created_time": "2026-07-25 10:44:23",
+          "type": "client_identity",
+          "agent_uri": "https://agent-server.sc-api.seaart.ai",
+          "sign_uri": "https://open-gateway.sc-api.saconsole.com",
+          "sign_key": "XY23haJt33vQt17372qv9dCbi",
+          "sign_pub_key": "-----BEGIN PUBLIC KEY-----\nMIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCyRZMO2llKmWHIFfjbRb02fypJ\n+RpNZsLSKAGVT5hIZh2zB8dOWodidpWPSpHaB4dW2AOIOu80NRu3JyX07ilTjo67\nvGtgokrAKrH6d98pULhdAhMuNFcDlW/T4uqllkUyF4DUXpomIqDZjVAZb8BnO/v1\nBuyeeU7ayScx5Ca6cwIDAQAB\n-----END PUBLIC KEY-----\n",
+          "v_sign_key": "XY33haw0hQIq717372qvfGodb",
+          "v_sign_pub_key": "-----BEGIN PUBLIC KEY-----\nMIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCmSLUsirPRz3CEyVfsK7oBRESW\nUxV1OUw5WmapSVOVUynafF3K7MAA19Z0vEjayqJDbVCHuvzBtEKyI2Fh9QlUz4Xg\nTk9SNMBOO2OT3+bCLbs/mlfSHWZ3GplBDw3sAPW67DuPMRheE313D3WhHHuw33MF\nrRZOvGf1Sto2gi0cVwIDAQAB\n-----END PUBLIC KEY-----\n",
+          "aes_id": "XY13ha2v2wtqz17372qv8Dhen",
+          "aes_key": "6zq71UxzI211UXv908L86SSpyyHM4Ai",
+          "aes_secret": "f07ec0a215da6b226cb316cbf8d8f81336be40b934ac1b4af604d64b77575cb1"
+        }
+      },
+      "payment": {
+        "gateway_base_url": "https://publish-gateway.sc-api.saconsole.com",
+        "client_id": "XF11rze2EAA17iA2glvnCa4",
+        "client_key": "XB13hPp4ufzBp17iA2gmg0h06",
+        "client_pubkey": "-----BEGIN PUBLIC KEY-----\nMIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQDYkVGArnOn+1qO4SySZhqCyorm\nHUsZZHFBxhGHDiALZiFEJHObfACNlXD6kgfV/mVCPUpiMJZ4r2tUTwacX76hRTZ8\nWanGzH9DuhMDIaEmpuCT6E4BvciXbzMst4UXMVt3j6hOxuxG62la7jDSFoOXoM8d\nVWSL4KUb2lrvBC9B3QIDAQAB\n-----END PUBLIC KEY-----",
+        "jwt_pubkey": "-----BEGIN PUBLIC KEY-----\nMIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQDktW/C7AxrtDWdpk8vkChNavK3\nAKfUyUGuFQtr2eXy7E8srOpZIFX+peiVHkr2mqGfV3SNvebTxnI1rf9fgEd40jki\nxYsqaws/1wzLL47HO6NznaMZx1gkpgU4DmB7TkT8XRMKalfXUwW2IGRg2AJWvy7R\nuUSWFjovcSxLBl8E3wIDAQAB\n-----END PUBLIC KEY-----",
+        "server_key": "XB23hP5TIKZUE17iA2gmtebDm",
+        "server_pubkey": "-----BEGIN PUBLIC KEY-----\nMIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCsofXjlfsLkvlP5z2JX2/r00mr\nb0ilA/vFg+qps7hQeIRNpjh7pcrk8zPG0KHvVoatrE8L8b6wcdaWqrDRiX9PfYUp\nGMspRWWgQbC0D8IYNS0YpvMu4Q3l6PWpZb3vA7PHDVpjLjX+lgWnhw3yQ0PjjL6Q\nEZuWZWIonBUop5gqNQIDAQAB\n-----END PUBLIC KEY-----",
+        "signing_key": "XB23hP5TIKZUE17iA2gmtebDm",
+        "public_key": "-----BEGIN PUBLIC KEY-----\nMIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCsofXjlfsLkvlP5z2JX2/r00mr\nb0ilA/vFg+qps7hQeIRNpjh7pcrk8zPG0KHvVoatrE8L8b6wcdaWqrDRiX9PfYUp\nGMspRWWgQbC0D8IYNS0YpvMu4Q3l6PWpZb3vA7PHDVpjLjX+lgWnhw3yQ0PjjL6Q\nEZuWZWIonBUop5gqNQIDAQAB\n-----END PUBLIC KEY-----",
+        "sdk_src": "https://seaart-publish.sc-api.saconsole.com/payment-sdk/client.js",
+        "callback_base_url": "https://seachat.ai",
+        "business_types": [
+          "one_time"
+        ],
+        "channels": [
+          "Adyen",
+          "PayPal"
+        ],
+        "notes": {
+          "doc": "星云配置文档（生产环境）.md",
+          "gateway_sdk_source": "demo-x project .env.production same client_id",
+          "platform_doc": "https://doc-center.center-private-production.staruniongame.com/848675ca-ffa3-474c-ba78-edaa8c0ae904/catalogue",
+          "test_closure": "create_order success, unpaid; test project stops here (user 2026-08-03)"
+        },
+        "channel_check": {
+          "method": "platform_api",
+          "checked_at": "2026-08-03T10:51:57.113Z",
+          "enabled_channels": [
+            "PayerMax",
+            "APPSTORE",
+            "GOOGLEPLAY"
+          ],
+          "evidence_ref": ".agents/seainfra/evidence/payment-channel-check-2026-08-03T10-51-57-115Z.json",
+          "platform_confirmation_ref": "key-backed Open API method_list against production gateway with DemoX client_id",
+          "notes": "missing: Adyen,PayPal; methods observed: PayerMax,APPSTORE,GOOGLEPLAY"
+        }
+      },
+      "search_recommend": {
+        "project_id": null,
+        "scenes": [],
+        "submission_url": "https://moreshort-recommender-strategy-recall-data-update.gpu-api.seaart.dev/rec-prd-bot/integration-intakes"
+      },
+      "ads_acquisition": {
+        "provider": null,
+        "app_id": null,
+        "credentials": null,
+        "platforms": [],
+        "conversion_events": []
+      }
+    }
+  }
+}

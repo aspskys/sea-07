@@ -1,0 +1,45 @@
+{
+  "business_detail_id": "BIZ20260803084734890C",
+  "summary": {
+    "one_liner": "demo-X首页精选接入搜推，基于用户聊天行为推荐数字人",
+    "background": "demo-X是用户浏览、聊天互动的数字人Web应用",
+    "what_to_do": "接入搜推推荐能力，完成数据对接与规则配置",
+    "objective": "提升用户聊天互动量，延长用户应用停留时长",
+    "scope": "demo-X项目，首页精选场景，数字人SKU数据",
+    "core_rules": "SKU准入需带首页或社区排序，核心行为为用户聊天",
+    "measurement": {
+      "primary": [
+        "用户聊天消息数",
+        "数字人访问量"
+      ],
+      "secondary": [
+        "内容新鲜度"
+      ],
+      "guardrail": []
+    },
+    "confirmed_facts": [
+      "SKU为数字人，唯一ID对应DigitalHuman.id映射obj_id",
+      "用户凭证为account_no，来源是User.id",
+      "SKU准入条件是含首页或社区排序非空",
+      "核心行为是用户向数字人发聊天消息",
+      "热门SKU按近7天聊天次数计算",
+      "项目/场景：demox / home_featured"
+    ],
+    "to_confirm": [
+      "submission_interface.url",
+      "submission_interface.auth",
+      "业务对接人",
+      "期望上线时间",
+      "sku 更新方式与频率",
+      "用户行为表及核心行为消费逻辑"
+    ],
+    "risks": [
+      "提交接口暂未配置应用鉴权，存在未授权写入和 LLM 调用风险",
+      "接口无鉴权存在未授权调用风险",
+      "缺失鉴权带来不必要的LLM调用成本风险"
+    ]
+  },
+  "display_markdown": "# demo-X 首页精选模块接入搜推服务，对数字人 SKU 做个性化推荐\n\n背景：demo-X是用户浏览、聊天互动的数字人Web应用\n\n接入解读：接入搜推推荐能力，完成数据对接与规则配置\n\n目标：提升用户聊天互动量，延长用户应用停留时长\n\n已明确：SKU为数字人，唯一ID对应DigitalHuman.id映射obj_id、用户凭证为account_no，来源是User.id、SKU准入条件是含首页或社区排序非空、核心行为是用户向数字人发聊天消息、热门SKU按近7天聊天次数计算、项目/场景：demox / home_featured\n\n待补充：submission_interface.url、submission_interface.auth、业务对接人、期望上线时间、sku 更新方式与频率、用户行为表及核心行为消费逻辑\n\n指标：用户聊天消息数、数字人访问量、内容新鲜度\n\n风险：提交接口暂未配置应用鉴权，存在未授权写入和 LLM 调用风险、接口无鉴权存在未授权调用风险、缺失鉴权带来不必要的LLM调用成本风险",
+  "llm_status": "succeeded",
+  "degraded": false
+}

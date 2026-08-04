@@ -1,0 +1,4 @@
+interface:
+  display_name: "SeaInfra 内容安全接入"
+  short_description: "使用官方 Sea SDK 接入文本、图片、视频及融合内容安全决策"
+  default_prompt: "使用 $seainfra-content-safety-integrate 为当前项目接入 SeaInfra 内容安全。"

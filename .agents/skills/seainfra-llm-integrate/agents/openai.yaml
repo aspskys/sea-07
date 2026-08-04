@@ -1,0 +1,4 @@
+interface:
+  display_name: "SeaInfra LLM 接入"
+  short_description: "通过协议探测确认网关契约并接入文本模型，不使用 SDK 门禁"
+  default_prompt: "使用 $seainfra-llm-integrate 通过协议门禁为当前项目接入 SeaInfra LLM。"

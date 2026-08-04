@@ -2,6 +2,11 @@ import { visionDecide } from "@infiplot/engine";
 import type { VisionRequest } from "@infiplot/types";
 import { NextResponse } from "next/server";
 import { loadEngineConfig, buildByoEngineConfig } from "@/lib/config";
+import {
+  logSafetyVerdict,
+  safetyHttpBlock,
+  scanUserImage,
+} from "@/lib/seainfra/contentSafety";
 import { requireUser } from "@/lib/supabase/guard";
 
 export const runtime = "nodejs";
@@ -41,6 +46,19 @@ export async function POST(req: Request) {
     return NextResponse.json(
       { error: `annotatedImageBase64 exceeds ${MAX_ANNOTATED_BYTES} bytes` },
       { status: 413 },
+    );
+  }
+
+  // Scan the annotated frame before vision interpretation / further generation.
+  const imageVerdict = await scanUserImage({
+    imageBase64: body.annotatedImageBase64,
+  });
+  logSafetyVerdict(imageVerdict);
+  const imageBlock = safetyHttpBlock(imageVerdict);
+  if (imageBlock) {
+    return NextResponse.json(
+      { error: imageBlock.error, code: imageBlock.code },
+      { status: imageBlock.status },
     );
   }
 

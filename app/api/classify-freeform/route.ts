@@ -2,6 +2,11 @@ import { classifyFreeform } from "@infiplot/engine";
 import type { FreeformClassifyRequest } from "@infiplot/types";
 import { NextResponse } from "next/server";
 import { loadEngineConfig, buildByoEngineConfig } from "@/lib/config";
+import {
+  logSafetyVerdict,
+  safetyHttpBlock,
+  scanUserText,
+} from "@/lib/seainfra/contentSafety";
 import { requireUser } from "@/lib/supabase/guard";
 
 export const runtime = "nodejs";
@@ -21,6 +26,16 @@ export async function POST(req: Request) {
     return NextResponse.json(
       { error: "session and freeformText are required" },
       { status: 400 },
+    );
+  }
+
+  const textVerdict = await scanUserText(body.freeformText);
+  logSafetyVerdict(textVerdict);
+  const textBlock = safetyHttpBlock(textVerdict);
+  if (textBlock) {
+    return NextResponse.json(
+      { error: textBlock.error, code: textBlock.code },
+      { status: textBlock.status },
     );
   }
 

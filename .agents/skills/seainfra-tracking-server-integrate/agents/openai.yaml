@@ -1,0 +1,4 @@
+interface:
+  display_name: "SeaInfra 服务端埋点接入"
+  short_description: "使用星合服务端配置接入 StarUnion SDK 或 HTTP 上报"
+  default_prompt: "使用 $seainfra-tracking-server-integrate 接入当前项目的服务端埋点。"

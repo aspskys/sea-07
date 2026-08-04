@@ -1,0 +1,4 @@
+interface:
+  display_name: "SeaInfra 数据同步验收"
+  short_description: "验证源库连通性、映射文档、数仓落表以及最小数据同步闭环结果"
+  default_prompt: "使用 $seainfra-data-sync-check 验收当前项目的 SeaInfra 数据同步接入。"

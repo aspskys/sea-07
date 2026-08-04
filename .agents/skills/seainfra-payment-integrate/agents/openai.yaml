@@ -1,0 +1,4 @@
+interface:
+  display_name: "SeaInfra 支付接入"
+  short_description: "申请星河支付凭证和渠道，并完成收银台与服务端支付接入"
+  default_prompt: "使用 $seainfra-payment-integrate 申请配置并接入星河支付平台。"

@@ -1,0 +1,17 @@
+{
+  "taskId": "d9m7nf5e878c7383rr5g",
+  "model": "mureka_tts",
+  "capability": "tts",
+  "status": "completed",
+  "createdAt": "2026-07-31T10:41:05.293Z",
+  "updatedAt": "2026-07-31T10:41:05.299Z",
+  "businessRef": "mureka-tts-fixed",
+  "resultUrls": [
+    "https://image.cdn2.seaart.me/2026-07-31/d9m7nf5e878c7383rr5g/b1e73b86-39b1-4dd3-a18d-c664606a1d40.mp3"
+  ],
+  "precharge": {
+    "status": "success",
+    "cost": "1"
+  },
+  "voice": "Ethan"
+}

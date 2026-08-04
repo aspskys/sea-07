@@ -1,0 +1,4 @@
+interface:
+  display_name: "SeaInfra Completion Check"
+  short_description: "Last-mile audit: trust evidence, not agent claims"
+  default_prompt: "使用 $seainfra-completion-check 审计中台接入是否 formal 完成，先跑 verify-completion.mjs。"

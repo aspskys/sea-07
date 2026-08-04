@@ -1,0 +1,4 @@
+interface:
+  display_name: "SeaInfra 广告买量验收"
+  short_description: "验证安装归因、深链、转化收入事件和最终数据落库链路"
+  default_prompt: "使用 $seainfra-ads-acquisition-check 验收当前项目的 SeaInfra 广告买量接入。"

@@ -1,0 +1,52 @@
+{
+  "schemaVersion": 1,
+  "module": "multimodal",
+  "environment": "test",
+  "result": "passed",
+  "checkedAt": "2026-07-30T14:24:31.868Z",
+  "sourceRefs": [
+    ".agents/skills/seainfra-multimodal-integrate/references/sea-ai-gateway-contract.md",
+    ".agents/seainfra/probes/modal-skill-alibaba_qwen_image_2_0.md",
+    "lib/seainfra/modal.ts",
+    "app/api/seainfra/modal-task/route.ts",
+    "sea_sdk_js@0.1.0"
+  ],
+  "checks": {
+    "static": {
+      "status": "passed",
+      "evidence": [
+        "sea_sdk_js installed; pnpm typecheck exit 0",
+        "capability image_generate → model alibaba_qwen_image_2_0 from live catalog",
+        "getModelSkill schema stored at .agents/seainfra/probes/modal-skill-alibaba_qwen_image_2_0.md",
+        "task body builder uses schema messages content image+text (no LLM messages/max_tokens stream fields)",
+        "task IDs persisted under .agents/seainfra/tasks/<id>.json; poll via withPollTimeout/Interval",
+        "API route app/api/seainfra/modal-task does not auto-public CDN URLs (includeUrls opt-in)",
+        "mureka_tts catalog-present but generator disabled (190000); not enabled as capability this env"
+      ]
+    },
+    "connectivity": {
+      "status": "passed",
+      "evidence": [
+        "listModels confirms alibaba_qwen_image_2_0 in catalog",
+        "getModelSkill schema_bytes=2785",
+        "create+wait taskId=d9llt15e878c73f0ac60 status=completed",
+        "precharge status=success cost=0.028571428571 (null would be explicit non-zero-not-assumed)",
+        "result url host=image.cdn2.seaart.me count=1"
+      ]
+    },
+    "e2e": {
+      "status": "passed",
+      "evidence": [
+        "submit image_generate with https imageUrl + prompt → completed with 1 output url",
+        "task record persisted before/after wait; resume get(taskId) returns completed",
+        "failed billable tasks not auto-retried in adapter",
+        "business entry: POST /api/seainfra/modal-task (auth-gated) + lib/seainfra/modal.ts"
+      ]
+    }
+  },
+  "notes": [
+    "User-requested mureka_tts is in catalog but gateway returns generator disabled; capability omitted until enabled.",
+    "alibaba_qwen_image_2_0 is image-to-image (requires imageUrl); pure text-to-image needs a separate catalog model selection.",
+    "Credentials not included in evidence."
+  ]
+}

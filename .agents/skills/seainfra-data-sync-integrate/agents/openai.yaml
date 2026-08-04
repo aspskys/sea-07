@@ -1,0 +1,4 @@
+interface:
+  display_name: "SeaInfra 数据同步接入"
+  short_description: "收集数据库配置、生成数仓映射并完成星云中台同步交付流程"
+  default_prompt: "使用 $seainfra-data-sync-integrate 为当前项目接入 SeaInfra 数据同步。"

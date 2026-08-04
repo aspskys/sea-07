@@ -2,6 +2,12 @@ import { startSession } from "@infiplot/engine";
 import type { SceneStreamEvent, StartRequest } from "@infiplot/types";
 import { NextResponse } from "next/server";
 import { loadEngineConfig } from "@/lib/config";
+import {
+  logSafetyVerdict,
+  safetyHttpBlock,
+  scanUserImage,
+  scanUserText,
+} from "@/lib/seainfra/contentSafety";
 import { requireUser } from "@/lib/supabase/guard";
 
 function formatSSE(event: SceneStreamEvent | { type: string; [k: string]: unknown }): string {
@@ -43,6 +49,34 @@ export async function POST(req: Request) {
       return NextResponse.json(
         { error: `styleReferenceImage exceeds ${MAX_STYLE_REF_BYTES} bytes` },
         { status: 413 },
+      );
+    }
+  }
+
+  // Content safety — user world/style text (and optional style ref image)
+  // before any generation. Policy: 高风险拦截, fail-closed on unavailable.
+  const textBundle = [body.worldSetting, body.styleGuide]
+    .filter((s) => typeof s === "string" && s.trim())
+    .join("\n\n");
+  const textVerdict = await scanUserText(textBundle);
+  logSafetyVerdict(textVerdict);
+  const textBlock = safetyHttpBlock(textVerdict);
+  if (textBlock) {
+    return NextResponse.json(
+      { error: textBlock.error, code: textBlock.code },
+      { status: textBlock.status },
+    );
+  }
+  if (typeof body.styleReferenceImage === "string") {
+    const imageVerdict = await scanUserImage({
+      imageBase64: body.styleReferenceImage,
+    });
+    logSafetyVerdict(imageVerdict);
+    const imageBlock = safetyHttpBlock(imageVerdict);
+    if (imageBlock) {
+      return NextResponse.json(
+        { error: imageBlock.error, code: imageBlock.code },
+        { status: imageBlock.status },
       );
     }
   }

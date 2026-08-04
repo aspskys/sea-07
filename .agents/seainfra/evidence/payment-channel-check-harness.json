@@ -1,0 +1,12 @@
+{
+  "clientId": "XF11rze2EAA17iA2glvnCa4",
+  "sdkSrc": "https://seaart-publish.sc-api.saconsole.com/payment-sdk/client.js",
+  "sysOrderId": "014000016a70705ce55fdb9347d3e4c8",
+  "businessType": "1",
+  "cpOrderId": "CHK_msd3n3mb_2a69e6",
+  "requestedChannels": [
+    "Adyen",
+    "PayPal"
+  ],
+  "createdAt": "2026-08-03T10:41:32.911Z"
+}

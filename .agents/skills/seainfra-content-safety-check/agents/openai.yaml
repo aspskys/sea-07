@@ -1,0 +1,4 @@
+interface:
+  display_name: "SeaInfra 内容安全验收"
+  short_description: "验证 Sea SDK 方法、完成字段、安全策略和真实业务闭环"
+  default_prompt: "使用 $seainfra-content-safety-check 验收当前项目的 SeaInfra 内容安全接入。"

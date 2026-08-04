@@ -1,0 +1,56 @@
+{
+  "schemaVersion": 1,
+  "environment": "test",
+  "base_url": "https://openresty-gateway.gpu-service.dev.seaart.dev/llm",
+  "model": "gpt-5.5",
+  "probed_at": "2026-07-30T13:56:20.091Z",
+  "supported_protocols": [
+    "openai_chat_completions",
+    "openai_responses"
+  ],
+  "protocols": [
+    {
+      "id": "openai_chat_completions",
+      "label": "OpenAI Chat Completions",
+      "endpoint": "chat/completions",
+      "spec_url": "https://platform.openai.com/docs/api-reference/chat/create",
+      "auth_mode": "bearer",
+      "http_status": 200,
+      "request_id": null,
+      "status": "supported",
+      "reason": "successful response matched protocol shape",
+      "attempted_auth_modes": [
+        "bearer"
+      ]
+    },
+    {
+      "id": "openai_responses",
+      "label": "OpenAI Responses",
+      "endpoint": "responses",
+      "spec_url": "https://platform.openai.com/docs/api-reference/responses/create",
+      "auth_mode": "bearer",
+      "http_status": 200,
+      "request_id": null,
+      "status": "supported",
+      "reason": "successful response matched protocol shape",
+      "attempted_auth_modes": [
+        "bearer"
+      ]
+    },
+    {
+      "id": "anthropic_messages",
+      "label": "Anthropic Messages",
+      "endpoint": "messages",
+      "spec_url": "https://docs.anthropic.com/en/api/messages",
+      "auth_mode": "x-api-key",
+      "http_status": 401,
+      "request_id": null,
+      "status": "inconclusive",
+      "reason": "authentication rejected with HTTP 401",
+      "attempted_auth_modes": [
+        "bearer",
+        "x-api-key"
+      ]
+    }
+  ]
+}

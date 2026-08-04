@@ -22,6 +22,13 @@
   },
   "dependencies": {
     "@fortawesome/fontawesome-free": "6.5.1",
+    "@seaart/conan-core": "npm:@seaverseai/conan-core@1.2.7",
+    "@seaart/conan-plugin-ad": "npm:@seaverseai/conan-plugin-ad@1.0.10",
+    "@seaart/conan-plugin-app": "npm:@seaverseai/conan-plugin-app@1.1.7",
+    "@seaart/conan-plugin-map": "npm:@seaverseai/conan-plugin-map@1.2.7",
+    "@seaart/conan-plugin-page": "npm:@seaverseai/conan-plugin-page@1.1.7",
+    "@seaart/conan-plugin-starunion": "npm:@seaverseai/conan-plugin-starunion@1.0.0",
+    "@seaart/conan-plugin-user": "npm:@seaverseai/conan-plugin-user@1.1.8",
     "@supabase/ssr": "^0.12",
     "@supabase/supabase-js": "^2.108",
     "jsonrepair": "^3.14.0",
@@ -30,6 +37,7 @@
     "openai": "^6.42.0",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
+    "sea_sdk_js": "github:SeaArt-Infra/sea-sdk-js",
     "server-only": "^0.0.1"
   },
   "devDependencies": {

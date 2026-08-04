@@ -1,0 +1,4 @@
+interface:
+  display_name: "SeaInfra 广告买量接入"
+  short_description: "依据平台资料接入归因 SDK、深链、广告参数和转化回传"
+  default_prompt: "使用 $seainfra-ads-acquisition-integrate 为当前项目接入 SeaInfra 广告买量。"

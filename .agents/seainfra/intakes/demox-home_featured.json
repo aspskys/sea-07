@@ -1,0 +1,82 @@
+{
+  "user_id": null,
+  "user_name": null,
+  "business_line": "demox",
+  "submission_interface": {
+    "url": null,
+    "method": null,
+    "auth": null,
+    "status": "missing",
+    "design_status": "proposed"
+  },
+  "bigdata_engine": "redshift",
+  "project_id": "demox",
+  "scene": "home_featured",
+  "product_description": "demo-X 是面向用户的数字人/角色世界 Web 应用：用户浏览精选与社区数字人列表，并与数字人进行对话聊天。SKU 为数字人 DigitalHuman；用户通过发起并持续聊天获得核心体验价值。",
+  "user_credential": {
+    "type": "account_no",
+    "source": "User.id",
+    "status": "confirmed"
+  },
+  "sku_source": {
+    "business_table": "demox.public.DigitalHuman",
+    "big_data_table": "demox.public.sync_DigitalHuman",
+    "mapping_source": "table-mapping.md,data-sync-config.md",
+    "status": "confirmed"
+  },
+  "sku_eligibility": {
+    "condition": "(\"featuredOrder\" IS NOT NULL OR \"communityOrder\" IS NOT NULL)",
+    "status": "confirmed"
+  },
+  "sku_fields": {
+    "sku_id": {
+      "field": "DigitalHuman.id",
+      "meaning": "数字人主键，映射为 obj_id",
+      "status": "confirmed"
+    },
+    "text_info": [
+      { "field": "DigitalHumanTranslation.title", "meaning": "数字人标题" },
+      { "field": "DigitalHumanTranslation.description", "meaning": "数字人简介" },
+      { "field": "DigitalHuman.tags", "meaning": "标签数组" }
+    ],
+    "img_info": [
+      { "field": "DigitalHuman.imagePath", "meaning": "主图路径或 URL" }
+    ],
+    "status": "confirmed"
+  },
+  "core_behavior": {
+    "name": "chat",
+    "definition": "用户向数字人发送聊天消息，落库 chat_message（user_id/device_id、agent_name、session_id、created_at）",
+    "status": "confirmed"
+  },
+  "pubsub": {
+    "topic": null,
+    "status": "optional"
+  },
+  "hot_sku": {
+    "core_metric": "聊天次数",
+    "metric_definition": null,
+    "time_window": {
+      "type": "rolling_days",
+      "days": 7,
+      "description": "最近 7 天"
+    },
+    "status": "confirmed"
+  },
+  "metrics": [
+    { "name": "访问量", "source": "DigitalHuman.visitCount", "status": "confirmed" },
+    { "name": "消息数", "source": "DigitalHuman.messageCount", "status": "confirmed" },
+    { "name": "内容新鲜度", "source": "DigitalHuman.contentUpdatedAt", "status": "confirmed" }
+  ],
+  "terminology": {
+    "sku": "DigitalHuman",
+    "obj_id": "DigitalHuman.id",
+    "account_no": "User.id",
+    "device_id": "chat_message.device_id",
+    "core_behavior": "chat"
+  },
+  "missing_fields": [
+    "submission_interface.url",
+    "submission_interface.auth"
+  ]
+}

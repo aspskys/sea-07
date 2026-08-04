@@ -5,9 +5,14 @@ import type {
   EngineConfig,
   ProviderConfig,
   ProviderProtocol,
+  TextLlmProtocol,
   TtsConfig,
 } from "@infiplot/types";
 import { validateUpstreamUrl, normalizeBaseUrl } from "./byoProxy";
+import {
+  coerceTextLlmProtocol,
+  loadSeaInfraLlmConfig,
+} from "./seainfra/config";
 
 const VALID_PROTOCOLS = [
   "openai_compatible",
@@ -67,14 +72,44 @@ function loadTtsConfig(): TtsConfig | undefined {
   return { baseUrl, apiKey, speechModel };
 }
 
+/**
+ * Text LLM config: env vars win field-by-field; missing fields fall back to
+ * SeaInfra unified config (`.agents/seainfra/config.json` active env `llm`).
+ * `TEXT_PROTOCOL` / seainfra `protocol` selects chat.completions vs Responses.
+ */
+function loadTextProviderConfig(): ProviderConfig {
+  const sea = loadSeaInfraLlmConfig();
+  const baseUrl = readOptionalVar("TEXT_BASE_URL") ?? sea?.base_url ?? undefined;
+  const apiKey = readOptionalVar("TEXT_API_KEY") ?? sea?.api_key ?? undefined;
+  const model = readOptionalVar("TEXT_MODEL") ?? sea?.model ?? undefined;
+  if (!baseUrl) throw new Error("Missing TEXT_BASE_URL (or seainfra llm.base_url)");
+  if (!apiKey) throw new Error("Missing TEXT_API_KEY (or seainfra llm.api_key)");
+  if (!model) throw new Error("Missing TEXT_MODEL (or seainfra llm.model)");
+
+  const textProtocol: TextLlmProtocol | undefined =
+    coerceTextLlmProtocol(readOptionalVar("TEXT_PROTOCOL")) ??
+    coerceTextLlmProtocol(sea?.protocol) ??
+    undefined;
+
+  const timeoutMs =
+    readOptionalPositiveInt("TEXT_TIMEOUT_MS") ??
+    (typeof sea?.timeout_ms === "number" && sea.timeout_ms > 0
+      ? Math.floor(sea.timeout_ms)
+      : undefined);
+
+  return {
+    baseUrl,
+    apiKey,
+    model,
+    provider: readProvider("TEXT_PROVIDER"),
+    textProtocol,
+    timeoutMs,
+  };
+}
+
 export function loadEngineConfig(): EngineConfig {
   return {
-    text: {
-      baseUrl: readVar("TEXT_BASE_URL"),
-      apiKey: readVar("TEXT_API_KEY"),
-      model: readVar("TEXT_MODEL"),
-      provider: readProvider("TEXT_PROVIDER"),
-    },
+    text: loadTextProviderConfig(),
     image: {
       baseUrl: readVar("IMAGE_BASE_URL"),
       apiKey: readVar("IMAGE_API_KEY"),

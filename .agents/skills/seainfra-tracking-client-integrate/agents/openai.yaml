@@ -1,0 +1,4 @@
+interface:
+  display_name: "SeaInfra 客户端埋点接入"
+  short_description: "使用星合客户端配置接入 Conan SDK、自动埋点和业务事件"
+  default_prompt: "使用 $seainfra-tracking-client-integrate 接入当前项目的客户端埋点。"

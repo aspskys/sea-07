@@ -1,0 +1,52 @@
+{
+  "schemaVersion": 1,
+  "module": "content_safety",
+  "environment": "test",
+  "result": "passed",
+  "checkedAt": "2026-07-30T14:17:51.020Z",
+  "sourceRefs": [
+    ".agents/skills/seainfra-content-safety-integrate/references/sea-sdk-contract.md",
+    ".agents/skills/seainfra-content-safety-integrate/SKILL.md",
+    "node_modules/sea_sdk_js/README.md",
+    "lib/seainfra/contentSafety.ts",
+    "app/api/start/route.ts",
+    "app/api/classify-freeform/route.ts",
+    "app/api/vision/route.ts"
+  ],
+  "checks": {
+    "static": {
+      "status": "passed",
+      "evidence": [
+        "pnpm add github:SeaArt-Infra/sea-sdk-js → sea_sdk_js@0.1.0 in package.json",
+        "pnpm typecheck exit 0 with lib/seainfra/sea_sdk_js.d.ts",
+        "methods: text→scanTextContent (level 0-6), image/video→scanImage (ok + nsfw_level); completion fields gated before policy",
+        "policy: blockAtLevel=4 reviewAtLevel=2 onUnavailable=fail-closed from product string",
+        "API routes wire: /api/start (text+style image), /api/classify-freeform (text), /api/vision (image)",
+        "logs via logSafetyVerdict: method/decision/reason/req/ms only",
+        "SEA gateway root strip /llm for Client.baseURL (model scans use /model/v1/...)"
+      ]
+    },
+    "connectivity": {
+      "status": "passed",
+      "evidence": [
+        "scanTextContent ok=true level=0 req_id=99659dee31294cad8691ec8933d0096d",
+        "scanImage ok=true nsfw_level=0 req_id=33e06d6c5cd2492ca9bab48c07b8b41c",
+        "auth failure with bad key HTTP 403 → unavailable/fail-closed path",
+        "gateway_root=https://openresty-gateway.gpu-service.dev.seaart.dev sdk=sea_sdk_js@0.1.0"
+      ]
+    },
+    "e2e": {
+      "status": "passed",
+      "evidence": [
+        "allow path: safe text + 32x32 png → completed allow (level/nsfw 0)",
+        "controlled block path: safetyHttpBlock maps decision=block → HTTP 403; unavailable fail-closed → HTTP 503",
+        "video: input guard requires https URI + is_video; live video sample not available this run — path implemented, remote video e2e marked note",
+        "business entries call scan before generation: start, classify-freeform, vision"
+      ]
+    }
+  },
+  "notes": [
+    "content_types includes video; live video URI scan not executed (no test asset). Code path and scheme guards verified.",
+    "Credentials not copied into evidence."
+  ]
+}

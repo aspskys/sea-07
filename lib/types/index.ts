@@ -449,6 +449,16 @@ export type ProviderProtocol =
   | "openai"
   | "runware";
 
+/**
+ * Text-LLM wire shape selected by SeaInfra protocol probe (or TEXT_PROTOCOL).
+ * Distinct from {@link ProviderProtocol} (image/transport adapter family).
+ * Default when unset: openai_chat_completions (historical chat.completions path).
+ */
+export type TextLlmProtocol =
+  | "openai_chat_completions"
+  | "openai_responses"
+  | "anthropic_messages";
+
 export type ProviderConfig = {
   baseUrl: string;
   apiKey: string;
@@ -460,6 +470,14 @@ export type ProviderConfig = {
    * deployments keep working without setting *_PROVIDER.
    */
   provider?: ProviderProtocol;
+  /**
+   * Text-only protocol from SeaInfra probe / TEXT_PROTOCOL. When
+   * `openai_responses`, chat uses the Responses API instead of
+   * chat.completions. Unset → chat.completions (back-compat).
+   */
+  textProtocol?: TextLlmProtocol;
+  /** Optional per-request hard deadline (ms) for text LLM calls. */
+  timeoutMs?: number;
 };
 
 export type TtsConfig = {

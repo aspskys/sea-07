@@ -1,0 +1,11 @@
+{
+  "taskId": "d9m59vde878c738nvumg",
+  "model": "mureka_tts",
+  "capability": "tts",
+  "status": "failed",
+  "createdAt": "2026-07-31T07:55:42.235Z",
+  "updatedAt": "2026-07-31T07:55:42.235Z",
+  "errorCode": 190000,
+  "errorMessage": "generator disabled: mureka_tts",
+  "businessRef": "recheck-tts"
+}

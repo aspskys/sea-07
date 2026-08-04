@@ -1,0 +1,47 @@
+{
+  "schemaVersion": 1,
+  "module": "llm",
+  "environment": "test",
+  "result": "passed",
+  "checkedAt": "2026-07-30T13:57:18.444Z",
+  "sourceRefs": [
+    ".agents/seainfra/probes/llm-test-2026-07-30T13-51-43-573Z.json",
+    ".agents/seainfra/probes/llm-test-2026-07-30T13-56-20-091Z.json",
+    "https://platform.openai.com/docs/api-reference/responses/create",
+    ".agents/skills/seainfra-llm-integrate/SKILL.md",
+    "lib/ai-client/chat.ts",
+    "lib/seainfra/config.ts",
+    "lib/config.ts"
+  ],
+  "checks": {
+    "static": {
+      "status": "passed",
+      "evidence": [
+        "protocol=openai_responses (allowed)",
+        "protocol_probe matches env/base_url/model and lists openai_responses as supported",
+        "adapter files present: lib/ai-client/chat.ts, lib/seainfra/config.ts, lib/config.ts",
+        "pnpm typecheck exit 0",
+        "textProtocol + timeoutMs on ProviderConfig; loadEngineConfig maps seainfra llm fields with env override"
+      ]
+    },
+    "connectivity": {
+      "status": "passed",
+      "evidence": [
+        "probe-llm-protocols.mjs --env test: openai_responses supported HTTP 200 (report .agents/seainfra/probes/llm-test-2026-07-30T13-56-20-091Z.json)",
+        "chat() Responses non-stream reply=\"OK\" model=gpt-5.5 via gateway /llm/responses"
+      ]
+    },
+    "e2e": {
+      "status": "passed",
+      "evidence": [
+        "business adapter path: lib/ai-client/chat.ts with textProtocol=openai_responses returns non-empty text",
+        "controlled failure: invalid model throws Error (not silent allow)",
+        "streaming: not probe-verified; chatStream degrades to non-stream one-shot for openai_responses"
+      ]
+    }
+  },
+  "notes": [
+    "Credentials from .agents/seainfra/config.json test.llm; not written to this evidence.",
+    "Full /api/start scene pipeline not exercised (needs image/vision/tts); text adapter is LLM module boundary."
+  ]
+}

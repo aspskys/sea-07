@@ -5,6 +5,7 @@ import { Analytics } from "@/components/Analytics";
 import { LOCALES, DEFAULT_LOCALE, type Locale } from "@/lib/i18n/config";
 import { localePath } from "@/lib/i18n/navigation";
 import { stripLocalePrefix } from "@/lib/i18n/navigation";
+import { TrackBootstrap } from "@/lib/track/TrackBootstrap";
 import "@fortawesome/fontawesome-free/css/all.min.css";
 import "./globals.css";
 
@@ -74,6 +75,7 @@ export default async function RootLayout({
       </head>
       <body className="bg-cream-50 text-clay-900 font-sans antialiased min-h-screen overflow-x-hidden">
         {children}
+        <TrackBootstrap />
         <Analytics />
       </body>
     </html>
