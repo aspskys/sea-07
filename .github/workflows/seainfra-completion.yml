@@ -1,0 +1,114 @@
+# Last-mile SeaInfra completion integrity gate.
+# Fails the PR if any module is marked completed with invalid/missing evidence
+# (agent "we're done" lies). Does NOT require full env_ready — test projects
+# may still be integrating/blocked as long as they don't fake completed.
+name: SeaInfra completion integrity
+
+on:
+  pull_request:
+    paths:
+      - ".agents/seainfra/**"
+      - ".agents/skills/seainfra-*/**"
+      - "lib/seainfra/**"
+      - "lib/payment/**"
+      - "lib/track/**"
+      - "lib/ai-client/**"
+      - "app/api/payments/**"
+      - "bigdata_config/**"
+      - ".github/workflows/seainfra-completion.yml"
+  push:
+    branches: [main]
+    paths:
+      - ".agents/seainfra/**"
+      - ".agents/skills/seainfra-*/**"
+      - ".github/workflows/seainfra-completion.yml"
+  workflow_dispatch:
+    inputs:
+      mode:
+        description: "audit | deep | env | ship"
+        required: false
+        default: "audit"
+      environment:
+        description: "test | production (ignored for ship)"
+        required: false
+        default: "test"
+      fix_false_completed:
+        description: "Apply block to false completed (writes state; use carefully)"
+        required: false
+        default: "false"
+        type: boolean
+
+jobs:
+  integrity:
+    name: Evidence integrity (no false completed)
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+
+      - name: Unit tests for completion script
+        run: node --test .agents/skills/seainfra-completion-check/scripts/verify-completion.test.mjs
+
+      - name: Audit test env (fail on false completed)
+        run: |
+          node .agents/skills/seainfra-completion-check/scripts/verify-completion.mjs \
+            --mode audit \
+            --env test \
+            --json \
+            --write-report .agents/seainfra/evidence/completion-ci-test.json
+
+      - name: Audit production env (fail on false completed)
+        run: |
+          node .agents/skills/seainfra-completion-check/scripts/verify-completion.mjs \
+            --mode audit \
+            --env production \
+            --json \
+            --write-report .agents/seainfra/evidence/completion-ci-production.json
+
+      - name: Deep mechanical re-probe (no live network)
+        if: github.event_name == 'workflow_dispatch' && inputs.mode == 'deep'
+        run: |
+          node .agents/skills/seainfra-completion-check/scripts/verify-completion.mjs \
+            --mode deep \
+            --env ${{ inputs.environment || 'test' }} \
+            --json \
+            --write-report .agents/seainfra/evidence/completion-ci-deep.json
+
+      - name: Env ready gate (optional dispatch)
+        if: github.event_name == 'workflow_dispatch' && inputs.mode == 'env'
+        run: |
+          node .agents/skills/seainfra-completion-check/scripts/verify-completion.mjs \
+            --mode env \
+            --env ${{ inputs.environment || 'test' }} \
+            --json
+
+      - name: Ship ready gate (optional dispatch)
+        if: github.event_name == 'workflow_dispatch' && inputs.mode == 'ship'
+        run: |
+          node .agents/skills/seainfra-completion-check/scripts/verify-completion.mjs \
+            --mode ship \
+            --json
+
+      - name: Fix false completed (optional dispatch)
+        if: github.event_name == 'workflow_dispatch' && inputs.fix_false_completed == true
+        run: |
+          node .agents/skills/seainfra-completion-check/scripts/verify-completion.mjs \
+            --mode audit \
+            --env ${{ inputs.environment || 'test' }} \
+            --fix-false-completed \
+            --json \
+            --write-report .agents/seainfra/evidence/completion-ci-fixed.json
+
+      - name: Upload audit reports
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: seainfra-completion-reports
+          path: .agents/seainfra/evidence/completion-ci-*.json
+          if-no-files-found: ignore

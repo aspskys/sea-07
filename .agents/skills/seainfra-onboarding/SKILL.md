@@ -34,6 +34,8 @@ node .agents/skills/seainfra-onboarding/scripts/manage-seainfra.mjs status
 12. 接入 Skill 完成后必须调用配对 Check Skill。Check Skill 写出证据 JSON 并调用 `complete` 后，模块才可显示完成。
 13. 测试环境全部完成后，单独执行生产环境 `provision`、配置和验收；测试结论不得继承。
 14. **最后一公里**：用户问「是否接完 / 能否上线 / 能不能信 agent」时，必须调用 `$seainfra-completion-check`，先跑 `scripts/verify-completion.mjs`。禁止仅凭对话或 integrate 自述宣称完成。`test_closure`（用户测试收口）≠ `env_ready`（环境 formal 完成）≠ `ship_ready`（可上线）。
+15. **假 completed**：审计发现 `completed` 但证据无效时，运行 `verify-completion.mjs --fix-false-completed`（或等价 `block`），不得继续当完成汇报。CI 工作流 `seainfra-completion.yml` 在 PR 上自动跑 integrity audit。
+16. **深度复查**：上线前或用户要求「真去查」时用 `--mode deep`（可选 `--live`），再按输出的 Check Skill 清单完整重跑各 `seainfra-*-check`。
 
 ## 状态命令
 

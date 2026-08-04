@@ -122,5 +122,39 @@
 
 1. 先跑脚本，再说话。
 2. `verdict` 必须与脚本一致；不得美化。
-3. 若用户问「能不能信 agent」：引用本标准与最近一次脚本 `failures`。
-4. 发现历史 `completed` 证据不合格：执行 `block <module> --reason evidence_audit_failed: ...`，要求重跑 Check。
+3. 若用户问「能不能信 agent」：引用本标准与最近一次脚本 `failures` / `falseCompleted`。
+4. 发现历史 `completed` 证据不合格：运行 `--fix-false-completed` 或等价 `block`，要求重跑 Check。
+
+## 9. CI 门禁策略
+
+| 场景 | 命令 | 失败含义 |
+|---|---|---|
+| 每个相关 PR | `--mode audit` × test + production | 存在 **假 completed**（装绿勾） |
+| 上线前人工 | `--mode env` / `--mode ship` | 未 formal 完成 / 不可上线 |
+| 深度复查 | `--mode deep`（可选 `--live`） | completed 模块机械探针失败 |
+| 纠错 | `--fix-false-completed` | 把假 completed 打成 `blocked` |
+
+PR **不**要求 `env_ready`：测试项目可以长期 integrating/blocked，但不能把不合格证据标成 completed。
+
+## 10. 深度模式覆盖范围
+
+| 模块 | 脚本自动（deep） | 仍需 agent Check Skill |
+|---|---|---|
+| llm | validate；protocol_probe 文件；可选 `--live` 协议探测 | 业务入口 e2e、失败路径 |
+| multimodal / content_safety | validate；实现目录存在 | 真实 create/scan |
+| data_sync | validate；`check-data-sync.mjs` | 数仓新鲜度/CDC 现场 |
+| tracking | validate；check-conan / server 探针 | 真上报 + starry 落库统计 |
+| payment | validate check；代码存在；签名单测 | 沙箱支付 + 回调幂等 |
+| search_recommend | validate；intake 痕迹 | 真实推荐 HTTP |
+| ads_acquisition | validate | 归因/转化链路 |
+
+## 11. --fix-false-completed
+
+对每个 `falseCompleted` 项调用：
+
+```bash
+manage-seainfra.mjs block <module> --env <env> --reason "evidence_audit_failed: ..."
+```
+
+效果：`status=blocked`，`blockers=[reason]`，清除「假绿勾」。  
+**不会**自动重跑 Check 或标 completed。修复后必须再走 `*-check` → `complete`。
