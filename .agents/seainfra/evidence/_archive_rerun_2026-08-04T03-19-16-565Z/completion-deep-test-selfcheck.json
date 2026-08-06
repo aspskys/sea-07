@@ -1,0 +1,381 @@
+{
+  "schemaVersion": 1,
+  "kind": "completion_audit",
+  "checkedAt": "2026-08-04T02:45:14.018Z",
+  "mode": "deep",
+  "live": false,
+  "verdict": "test_closure",
+  "environment": "test",
+  "selectedCount": 8,
+  "completedOk": 4,
+  "deferred": 4,
+  "falseCompleted": [],
+  "modules": [
+    {
+      "module": "llm",
+      "selected": true,
+      "state": "completed",
+      "evidence": ".agents/seainfra/evidence/llm-test-2026-07-30T13-57-18-440Z.json",
+      "evidenceAudit": "pass",
+      "failures": [],
+      "warnings": [
+        "llm live probe skipped (pass --live to enable)"
+      ],
+      "blockers": [],
+      "userAcceptedTestClosure": false,
+      "userDeferredTo": null,
+      "deep": {
+        "results": [
+          {
+            "name": "validate_integration",
+            "ok": true,
+            "detail": "ok"
+          },
+          {
+            "name": "probe_llm_live",
+            "ok": true,
+            "detail": "skipped (no --live)",
+            "skipped": true
+          },
+          {
+            "name": "protocol_probe_file",
+            "ok": true,
+            "detail": ".agents/seainfra/probes/llm-test-2026-07-30T13-51-43-573Z.json"
+          }
+        ],
+        "failures": [],
+        "warnings": [
+          "llm live probe skipped (pass --live to enable)"
+        ],
+        "agentChecklist": [
+          "seainfra-llm-check (business chat path + failure path)"
+        ],
+        "checkSkill": "seainfra-llm-check"
+      },
+      "checkSkill": "seainfra-llm-check"
+    },
+    {
+      "module": "multimodal",
+      "selected": true,
+      "state": "completed",
+      "evidence": ".agents/seainfra/evidence/multimodal-test-2026-07-31T10-41-43-193Z.json",
+      "evidenceAudit": "pass",
+      "failures": [],
+      "warnings": [
+        "multimodal live gateway probe skipped (pass --live)"
+      ],
+      "blockers": [],
+      "userAcceptedTestClosure": false,
+      "userDeferredTo": null,
+      "deep": {
+        "results": [
+          {
+            "name": "validate_integration",
+            "ok": true,
+            "detail": "ok"
+          },
+          {
+            "name": "seainfra_impl_dir",
+            "ok": true,
+            "detail": "lib/seainfra present"
+          }
+        ],
+        "failures": [],
+        "warnings": [
+          "multimodal live gateway probe skipped (pass --live)"
+        ],
+        "agentChecklist": [
+          "seainfra-multimodal-check (create/get task)"
+        ],
+        "checkSkill": "seainfra-multimodal-check"
+      },
+      "checkSkill": "seainfra-multimodal-check"
+    },
+    {
+      "module": "content_safety",
+      "selected": true,
+      "state": "completed",
+      "evidence": ".agents/seainfra/evidence/content_safety-test-2026-07-30T14-17-44-019Z.json",
+      "evidenceAudit": "pass",
+      "failures": [],
+      "warnings": [
+        "content_safety live gateway probe skipped (pass --live)"
+      ],
+      "blockers": [],
+      "userAcceptedTestClosure": false,
+      "userDeferredTo": null,
+      "deep": {
+        "results": [
+          {
+            "name": "validate_integration",
+            "ok": true,
+            "detail": "ok"
+          },
+          {
+            "name": "seainfra_impl_dir",
+            "ok": true,
+            "detail": "lib/seainfra present"
+          }
+        ],
+        "failures": [],
+        "warnings": [
+          "content_safety live gateway probe skipped (pass --live)"
+        ],
+        "agentChecklist": [
+          "seainfra-content-safety-check (real scan)"
+        ],
+        "checkSkill": "seainfra-content-safety-check"
+      },
+      "checkSkill": "seainfra-content-safety-check"
+    },
+    {
+      "module": "data_sync",
+      "selected": true,
+      "state": "completed",
+      "evidence": ".agents/seainfra/evidence/data_sync-test-2026-08-03T07-51-44-182Z.json",
+      "evidenceAudit": "pass",
+      "failures": [],
+      "warnings": [],
+      "blockers": [],
+      "userAcceptedTestClosure": false,
+      "userDeferredTo": null,
+      "deep": {
+        "results": [
+          {
+            "name": "validate_integration",
+            "ok": true,
+            "detail": "ok"
+          },
+          {
+            "name": "check_data_sync_script",
+            "ok": true,
+            "detail": "check-data-sync exit 0"
+          }
+        ],
+        "failures": [],
+        "warnings": [],
+        "agentChecklist": [
+          "seainfra-data-sync-check (warehouse freshness / CDC)"
+        ],
+        "checkSkill": "seainfra-data-sync-check"
+      },
+      "checkSkill": "seainfra-data-sync-check"
+    },
+    {
+      "module": "tracking",
+      "selected": true,
+      "state": "integrating",
+      "evidence": null,
+      "evidenceAudit": "n/a",
+      "failures": [],
+      "warnings": [
+        "validate integration incomplete: client_config.stage (release required for test), server_config.stage (release required for test)",
+        "userAcceptedTestClosure (not formal completed)",
+        "(deep-precheck) deep:validate_integration: missing client_config.stage (release required for test), server_config.stage (release required for test)",
+        "server tracking code=none (deep note)"
+      ],
+      "blockers": [],
+      "userAcceptedTestClosure": true,
+      "userDeferredTo": null,
+      "deep": {
+        "results": [
+          {
+            "name": "validate_integration",
+            "ok": false,
+            "detail": "missing client_config.stage (release required for test), server_config.stage (release required for test)"
+          },
+          {
+            "name": "check_conan",
+            "ok": true,
+            "detail": "code=full deps ok"
+          },
+          {
+            "name": "check_starunion_server",
+            "ok": true,
+            "detail": "code=none transport=none"
+          }
+        ],
+        "failures": [
+          "deep:validate_integration: missing client_config.stage (release required for test), server_config.stage (release required for test)"
+        ],
+        "warnings": [
+          "server tracking code=none (deep note)"
+        ],
+        "agentChecklist": [
+          "seainfra-tracking-check (real report + starry stats)"
+        ],
+        "checkSkill": "seainfra-tracking-check"
+      },
+      "checkSkill": "seainfra-tracking-check"
+    },
+    {
+      "module": "payment",
+      "selected": true,
+      "state": "integrating",
+      "evidence": ".agents/seainfra/evidence/payment-channel-check-2026-08-03T10-51-57-115Z.json",
+      "evidenceAudit": "n/a",
+      "failures": [],
+      "warnings": [
+        "validate integration incomplete: channels (not enabled: Adyen, PayPal)",
+        "userAcceptedTestClosure (not formal completed)",
+        "(deep-precheck) deep:validate_integration: missing channels (not enabled: Adyen, PayPal)",
+        "(deep-precheck) deep:validate_payment_check: missing channels (not enabled: Adyen, PayPal)"
+      ],
+      "blockers": [
+        "Requested Adyen/PayPal not on platform method_list (actual: PayerMax Card/ApplePay/GooglePay). Acceptable for test project stop."
+      ],
+      "userAcceptedTestClosure": true,
+      "userDeferredTo": null,
+      "deep": {
+        "results": [
+          {
+            "name": "validate_integration",
+            "ok": false,
+            "detail": "missing channels (not enabled: Adyen, PayPal)"
+          },
+          {
+            "name": "validate_payment_check",
+            "ok": false,
+            "detail": "missing channels (not enabled: Adyen, PayPal)"
+          },
+          {
+            "name": "payment_code",
+            "ok": true,
+            "detail": "lib/payment/starry.ts + routes"
+          },
+          {
+            "name": "payment_signature_tests",
+            "ok": true,
+            "detail": "exit 0"
+          }
+        ],
+        "failures": [
+          "deep:validate_integration: missing channels (not enabled: Adyen, PayPal)",
+          "deep:validate_payment_check: missing channels (not enabled: Adyen, PayPal)"
+        ],
+        "warnings": [],
+        "agentChecklist": [
+          "seainfra-payment-check (channel_check + sandbox pay + callback idempotency)"
+        ],
+        "checkSkill": "seainfra-payment-check"
+      },
+      "checkSkill": "seainfra-payment-check"
+    },
+    {
+      "module": "search_recommend",
+      "selected": true,
+      "state": "blocked",
+      "evidence": null,
+      "evidenceAudit": "n/a",
+      "failures": [],
+      "warnings": [
+        "deferred to 鸣人 / formal project recommend API"
+      ],
+      "blockers": [
+        "No recommend HTTP API/docs yet. Formal project: 鸣人 completes对接 and returns recommend API; test flow will land in this env after that."
+      ],
+      "userAcceptedTestClosure": false,
+      "userDeferredTo": "鸣人 / formal project recommend API",
+      "deep": {
+        "results": [
+          {
+            "name": "validate_integration",
+            "ok": true,
+            "detail": "ok"
+          },
+          {
+            "name": "intake_present",
+            "ok": true,
+            "detail": "intake/BIZ id"
+          }
+        ],
+        "failures": [],
+        "warnings": [],
+        "agentChecklist": [
+          "seainfra-search-recommend-check (real recommend HTTP + tracking pass-through)"
+        ],
+        "checkSkill": "seainfra-search-recommend-check"
+      },
+      "checkSkill": "seainfra-search-recommend-check"
+    },
+    {
+      "module": "ads_acquisition",
+      "selected": true,
+      "state": "blocked",
+      "evidence": null,
+      "evidenceAudit": "n/a",
+      "failures": [],
+      "warnings": [
+        "validate integration incomplete: provider, app_id, credentials, platforms, conversion_events",
+        "deferred to 天宇 / 拉卡拉",
+        "(deep-precheck) deep:validate_integration: missing provider, app_id, credentials, platforms, conversion_events"
+      ],
+      "blockers": [
+        "Out of product scope for this test project. Formal: 天宇对接拉卡拉; product side can ignore for now (user 2026-08-03)."
+      ],
+      "userAcceptedTestClosure": false,
+      "userDeferredTo": "天宇 / 拉卡拉",
+      "deep": {
+        "results": [
+          {
+            "name": "validate_integration",
+            "ok": false,
+            "detail": "missing provider, app_id, credentials, platforms, conversion_events"
+          }
+        ],
+        "failures": [
+          "deep:validate_integration: missing provider, app_id, credentials, platforms, conversion_events"
+        ],
+        "warnings": [],
+        "agentChecklist": [
+          "seainfra-ads-acquisition-check (install attribution + conversion)"
+        ],
+        "checkSkill": "seainfra-ads-acquisition-check"
+      },
+      "checkSkill": "seainfra-ads-acquisition-check"
+    }
+  ],
+  "failures": [],
+  "warnings": [
+    "llm: llm live probe skipped (pass --live to enable)",
+    "multimodal: multimodal live gateway probe skipped (pass --live)",
+    "content_safety: content_safety live gateway probe skipped (pass --live)",
+    "tracking: validate integration incomplete: client_config.stage (release required for test), server_config.stage (release required for test)",
+    "tracking: userAcceptedTestClosure (not formal completed)",
+    "tracking: (deep-precheck) deep:validate_integration: missing client_config.stage (release required for test), server_config.stage (release required for test)",
+    "tracking: server tracking code=none (deep note)",
+    "payment: validate integration incomplete: channels (not enabled: Adyen, PayPal)",
+    "payment: userAcceptedTestClosure (not formal completed)",
+    "payment: (deep-precheck) deep:validate_integration: missing channels (not enabled: Adyen, PayPal)",
+    "payment: (deep-precheck) deep:validate_payment_check: missing channels (not enabled: Adyen, PayPal)",
+    "search_recommend: deferred to 鸣人 / formal project recommend API",
+    "ads_acquisition: validate integration incomplete: provider, app_id, credentials, platforms, conversion_events",
+    "ads_acquisition: deferred to 天宇 / 拉卡拉",
+    "ads_acquisition: (deep-precheck) deep:validate_integration: missing provider, app_id, credentials, platforms, conversion_events"
+  ],
+  "nextAction": "测试收口可暂停；不得宣称 formal 完成。正式项目按 failures/warnings 重跑对应 *-check。",
+  "testProjectClosure": {
+    "at": "2026-08-03T10:59:38.749Z",
+    "summary": "User closed test-project onboarding scope: tracking reporting accepted; payment create_order unpaid OK; search wait 鸣人; ads out of product scope (天宇/拉卡拉).",
+    "modules": {
+      "completed_with_evidence": [
+        "llm",
+        "multimodal",
+        "content_safety",
+        "data_sync"
+      ],
+      "test_accepted_without_formal_check": [
+        "tracking"
+      ],
+      "test_stopped_at_probe": [
+        "payment"
+      ],
+      "deferred_platform": [
+        "search_recommend"
+      ],
+      "deferred_other_team": [
+        "ads_acquisition"
+      ]
+    }
+  }
+}

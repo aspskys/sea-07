@@ -1,0 +1,41 @@
+{
+  "schemaVersion": 1,
+  "module": "llm",
+  "environment": "test",
+  "result": "passed",
+  "checkedAt": "2026-08-04T03:24:33.978Z",
+  "sourceRefs": [
+    ".agents/seainfra/probes/llm-test-2026-08-04T03-19-50-349Z.json",
+    ".agents/seainfra/probes/rerun-live-2026-08-04.json",
+    "https://platform.openai.com/docs/api-reference/responses/create",
+    "lib/ai-client/chat.ts"
+  ],
+  "checks": {
+    "static": {
+      "status": "passed",
+      "evidence": [
+        "protocol=openai_responses allowed; protocol_probe=.agents/seainfra/probes/llm-test-2026-08-04T03-19-50-349Z.json lists openai_responses supported",
+        "adapter files present: lib/ai-client/chat.ts lib/seainfra/config.ts lib/config.ts",
+        "validate llm --env test integration empty missing list"
+      ]
+    },
+    "connectivity": {
+      "status": "passed",
+      "evidence": [
+        "probe-llm-protocols.mjs 2026-08-04: openai_responses supported (probe llm-test-2026-08-04T03-19-50-349Z.json)",
+        "POST /llm/responses model=gpt-5.5 HTTP 200 output_text=OK (probe rerun-live-2026-08-04.json)"
+      ]
+    },
+    "e2e": {
+      "status": "passed",
+      "evidence": [
+        "business boundary chat path: Responses API returns non-empty OK for adapter-compatible call",
+        "controlled failure: invalid model returns HTTP 404 model_not_found (not silent allow)"
+      ]
+    }
+  },
+  "notes": [
+    "typecheck currently fails on missing @seaart/conan-* (tracking deps); LLM adapter itself is present",
+    "Rerun from scratch on 2026-08-04T03:24:33.978Z"
+  ]
+}

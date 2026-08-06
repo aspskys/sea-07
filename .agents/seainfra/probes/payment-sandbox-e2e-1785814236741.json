@@ -1,0 +1,60 @@
+{
+  "startedAt": "2026-08-04T03:30:32.201Z",
+  "steps": [
+    {
+      "name": "method_list",
+      "ok": true,
+      "code": 20000,
+      "count": 3,
+      "channels": [
+        "PAYERMAX"
+      ],
+      "at": "2026-08-04T03:30:35.340Z"
+    },
+    {
+      "name": "create_order",
+      "ok": true,
+      "cpOrderId_prefix": "SBX_mse3oqtp_f…",
+      "sys_order_id_prefix": "014000016a71…",
+      "business_type": 1,
+      "platform_status": 1,
+      "is_sandbox": 2,
+      "notifyUrl_host": "seachat.ai",
+      "at": "2026-08-04T03:30:36.187Z"
+    },
+    {
+      "name": "sandbox_callback_success",
+      "ok": true,
+      "code": 20000,
+      "orderStatus": "SUCCEEDED",
+      "fulfilledAt": "2026-08-04T03:30:36.188Z",
+      "fulfilled": true,
+      "at": "2026-08-04T03:30:36.191Z"
+    },
+    {
+      "name": "sandbox_callback_idempotent",
+      "ok": true,
+      "code": 20000,
+      "duplicate": true,
+      "orderStatus": "SUCCEEDED",
+      "eventCount": 1,
+      "at": "2026-08-04T03:30:36.192Z"
+    },
+    {
+      "name": "sandbox_callback_bad_signature",
+      "ok": true,
+      "code": 40001,
+      "httpStatus": 401,
+      "at": "2026-08-04T03:30:36.193Z"
+    },
+    {
+      "name": "sandbox_callback_amount_mismatch",
+      "ok": true,
+      "code": 40005,
+      "orderStatus": "PENDING",
+      "at": "2026-08-04T03:30:36.741Z"
+    }
+  ],
+  "ok": true,
+  "finishedAt": "2026-08-04T03:30:36.741Z"
+}

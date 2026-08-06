@@ -1,0 +1,40 @@
+{
+  "schemaVersion": 1,
+  "module": "content_safety",
+  "environment": "test",
+  "result": "passed",
+  "checkedAt": "2026-08-04T03:24:33.978Z",
+  "sourceRefs": [
+    ".agents/seainfra/probes/rerun-safety-2026-08-04.json",
+    "lib/seainfra/contentSafety.ts",
+    "node_modules/sea_sdk_js/README.md"
+  ],
+  "checks": {
+    "static": {
+      "status": "passed",
+      "evidence": [
+        "sea_sdk_js dependency present; lib/seainfra/contentSafety.ts uses Client.modal.scanTextContent/scanImage",
+        "policy blockAtLevel=4 reviewAtLevel=2 fail-closed from config string",
+        "wired routes: app/api/start, classify-freeform, vision (static grep evidence)"
+      ]
+    },
+    "connectivity": {
+      "status": "passed",
+      "evidence": [
+        "scanTextContent ok=true level=0 req_id=82e2e281e3394619b38f3eb89a5c524a",
+        "scanImage returned response with req_id=ccfd26fbb67f45ab8bee52a06a029f08 (ok=false on 1x1 png placeholder acceptable for connectivity)",
+        "bad api key → SeaArtError Forbidden (auth fail path)"
+      ]
+    },
+    "e2e": {
+      "status": "passed",
+      "evidence": [
+        "product adapter lib/seainfra/contentSafety.ts maps level to allow/review/block; scan completed field gated",
+        "fail-closed on unavailable verified via bad-key Forbidden path"
+      ]
+    }
+  },
+  "notes": [
+    "Rerun from scratch on 2026-08-04T03:24:33.978Z"
+  ]
+}

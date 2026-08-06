@@ -1,0 +1,199 @@
+{
+  "schemaVersion": 1,
+  "kind": "completion_audit",
+  "checkedAt": "2026-08-04T02:45:11.956Z",
+  "mode": "audit",
+  "live": false,
+  "verdict": "test_closure",
+  "environment": "production",
+  "selectedCount": 8,
+  "completedOk": 0,
+  "deferred": 3,
+  "falseCompleted": [],
+  "modules": [
+    {
+      "module": "llm",
+      "selected": true,
+      "state": "selected",
+      "evidence": null,
+      "evidenceAudit": "n/a",
+      "failures": [],
+      "warnings": [
+        "validate integration incomplete: base_url, api_key, model, protocol, protocol_probe",
+        "status=selected not completed"
+      ],
+      "blockers": [],
+      "userAcceptedTestClosure": false,
+      "userDeferredTo": null,
+      "deep": null,
+      "checkSkill": "seainfra-llm-check"
+    },
+    {
+      "module": "multimodal",
+      "selected": true,
+      "state": "selected",
+      "evidence": null,
+      "evidenceAudit": "n/a",
+      "failures": [],
+      "warnings": [
+        "validate integration incomplete: base_url, api_key, capabilities, models",
+        "status=selected not completed"
+      ],
+      "blockers": [],
+      "userAcceptedTestClosure": false,
+      "userDeferredTo": null,
+      "deep": null,
+      "checkSkill": "seainfra-multimodal-check"
+    },
+    {
+      "module": "content_safety",
+      "selected": true,
+      "state": "selected",
+      "evidence": null,
+      "evidenceAudit": "n/a",
+      "failures": [],
+      "warnings": [
+        "validate integration incomplete: base_url, api_key, content_types, policy",
+        "status=selected not completed"
+      ],
+      "blockers": [],
+      "userAcceptedTestClosure": false,
+      "userDeferredTo": null,
+      "deep": null,
+      "checkSkill": "seainfra-content-safety-check"
+    },
+    {
+      "module": "data_sync",
+      "selected": true,
+      "state": "selected",
+      "evidence": null,
+      "evidenceAudit": "n/a",
+      "failures": [],
+      "warnings": [
+        "validate integration incomplete: database_type, database, objects, network_access",
+        "status=selected not completed"
+      ],
+      "blockers": [],
+      "userAcceptedTestClosure": false,
+      "userDeferredTo": null,
+      "deep": null,
+      "checkSkill": "seainfra-data-sync-check"
+    },
+    {
+      "module": "tracking",
+      "selected": true,
+      "state": "integrating",
+      "evidence": null,
+      "evidenceAudit": "n/a",
+      "failures": [],
+      "warnings": [
+        "userAcceptedTestClosure (not formal completed)"
+      ],
+      "blockers": [
+        "Formal production tracking not separately accepted; test project used DemoX production-stage configs. Re-run full check for formal project."
+      ],
+      "userAcceptedTestClosure": true,
+      "userDeferredTo": null,
+      "deep": null,
+      "checkSkill": "seainfra-tracking-check"
+    },
+    {
+      "module": "payment",
+      "selected": true,
+      "state": "integrating",
+      "evidence": ".agents/seainfra/evidence/payment-channel-check-2026-08-03T10-51-57-115Z.json",
+      "evidenceAudit": "n/a",
+      "failures": [],
+      "warnings": [
+        "validate integration incomplete: channels (not enabled: Adyen, PayPal)",
+        "userAcceptedTestClosure (not formal completed)"
+      ],
+      "blockers": [
+        "Requested Adyen/PayPal not on platform method_list (actual: PayerMax Card/ApplePay/GooglePay). Acceptable for test project stop."
+      ],
+      "userAcceptedTestClosure": true,
+      "userDeferredTo": null,
+      "deep": null,
+      "checkSkill": "seainfra-payment-check"
+    },
+    {
+      "module": "search_recommend",
+      "selected": true,
+      "state": "selected",
+      "evidence": null,
+      "evidenceAudit": "n/a",
+      "failures": [],
+      "warnings": [
+        "validate integration incomplete: project_id, scenes",
+        "dependency data_sync not completed (selected)",
+        "status=selected not completed"
+      ],
+      "blockers": [],
+      "userAcceptedTestClosure": false,
+      "userDeferredTo": null,
+      "deep": null,
+      "checkSkill": "seainfra-search-recommend-check"
+    },
+    {
+      "module": "ads_acquisition",
+      "selected": true,
+      "state": "selected",
+      "evidence": null,
+      "evidenceAudit": "n/a",
+      "failures": [],
+      "warnings": [
+        "validate integration incomplete: provider, app_id, credentials, platforms, conversion_events",
+        "deferred to 天宇 / 拉卡拉"
+      ],
+      "blockers": [],
+      "userAcceptedTestClosure": false,
+      "userDeferredTo": "天宇 / 拉卡拉",
+      "deep": null,
+      "checkSkill": "seainfra-ads-acquisition-check"
+    }
+  ],
+  "failures": [],
+  "warnings": [
+    "llm: validate integration incomplete: base_url, api_key, model, protocol, protocol_probe",
+    "llm: status=selected not completed",
+    "multimodal: validate integration incomplete: base_url, api_key, capabilities, models",
+    "multimodal: status=selected not completed",
+    "content_safety: validate integration incomplete: base_url, api_key, content_types, policy",
+    "content_safety: status=selected not completed",
+    "data_sync: validate integration incomplete: database_type, database, objects, network_access",
+    "data_sync: status=selected not completed",
+    "tracking: userAcceptedTestClosure (not formal completed)",
+    "payment: validate integration incomplete: channels (not enabled: Adyen, PayPal)",
+    "payment: userAcceptedTestClosure (not formal completed)",
+    "search_recommend: validate integration incomplete: project_id, scenes",
+    "search_recommend: dependency data_sync not completed (selected)",
+    "search_recommend: status=selected not completed",
+    "ads_acquisition: validate integration incomplete: provider, app_id, credentials, platforms, conversion_events",
+    "ads_acquisition: deferred to 天宇 / 拉卡拉"
+  ],
+  "nextAction": "测试收口可暂停；不得宣称 formal 完成。正式项目按 failures/warnings 重跑对应 *-check。",
+  "testProjectClosure": {
+    "at": "2026-08-03T10:59:38.749Z",
+    "summary": "User closed test-project onboarding scope: tracking reporting accepted; payment create_order unpaid OK; search wait 鸣人; ads out of product scope (天宇/拉卡拉).",
+    "modules": {
+      "completed_with_evidence": [
+        "llm",
+        "multimodal",
+        "content_safety",
+        "data_sync"
+      ],
+      "test_accepted_without_formal_check": [
+        "tracking"
+      ],
+      "test_stopped_at_probe": [
+        "payment"
+      ],
+      "deferred_platform": [
+        "search_recommend"
+      ],
+      "deferred_other_team": [
+        "ads_acquisition"
+      ]
+    }
+  }
+}

@@ -1,0 +1,49 @@
+{
+  "schemaVersion": 1,
+  "module": "multimodal",
+  "environment": "test",
+  "result": "passed",
+  "checkedAt": "2026-07-31T10:41:43.194Z",
+  "sourceRefs": [
+    ".agents/skills/seainfra-multimodal-integrate/references/sea-ai-gateway-contract.md",
+    ".agents/seainfra/probes/modal-skill-alibaba_qwen_image_2_0.md",
+    ".agents/seainfra/probes/modal-skill-mureka_tts.md",
+    "lib/seainfra/modal.ts",
+    "app/api/seainfra/modal-task/route.ts",
+    "sea_sdk_js@0.1.0"
+  ],
+  "checks": {
+    "static": {
+      "status": "passed",
+      "evidence": [
+        "capabilities [image_generate, tts] mapped to alibaba_qwen_image_2_0 and mureka_tts",
+        "getModelSkill schemas present for both models under .agents/seainfra/probes/",
+        "body builders in lib/seainfra/modal.ts for both schema shapes; no LLM messages/max_tokens stream fields",
+        "task IDs persisted under .agents/seainfra/tasks/; poll via withPollTimeout/Interval",
+        "pnpm typecheck previously green for modal adapter"
+      ]
+    },
+    "connectivity": {
+      "status": "passed",
+      "evidence": [
+        "tts: taskId=d9m7nf5e878c7383rr5g status=completed precharge=success cost=1 voice=Ethan urlHost=image.cdn2.seaart.me ext=mp3",
+        "image_generate: taskId=d9m7nkde878c73c48g90 status=completed urlCount=1",
+        "catalog contains mureka_tts; create no longer returns generator disabled 190000"
+      ]
+    },
+    "e2e": {
+      "status": "passed",
+      "evidence": [
+        "tts create+wait completed with 1 audio URL after platform fix",
+        "image_generate create+wait completed with 1 image URL (alibaba_qwen_image_2_0 i2i)",
+        "task records persisted for resume; failed billable tasks not auto-retried",
+        "API entry app/api/seainfra/modal-task supports capability tts|image_generate"
+      ]
+    }
+  },
+  "notes": [
+    "mureka_tts was previously generator-disabled (190000); re-probed after platform fix and passed.",
+    "alibaba_qwen_audio_3_tts_plus trial left as non-selected (NLS voice mapping unresolved).",
+    "Credentials not included in evidence."
+  ]
+}

@@ -1,0 +1,36 @@
+{
+  "scanTextContent": {
+    "ok": true,
+    "level": 0,
+    "completed": true,
+    "request_id": "82e2e281e3394619b38f3eb89a5c524a",
+    "keys": [
+      "reason",
+      "usage",
+      "ok",
+      "req_id",
+      "level",
+      "label",
+      "extra",
+      "Extra"
+    ]
+  },
+  "scanImage": {
+    "ok": false,
+    "nsfw_level": 0,
+    "request_id": "ccfd26fbb67f45ab8bee52a06a029f08",
+    "keys": [
+      "ok",
+      "error",
+      "nsfw_level",
+      "label_items",
+      "req_id",
+      "duration_ms",
+      "usage"
+    ]
+  },
+  "badKey": {
+    "error": "Forbidden",
+    "name": "SeaArtError"
+  }
+}

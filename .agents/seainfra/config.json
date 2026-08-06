@@ -251,7 +251,7 @@
         "model": "gpt-5.5",
         "timeout_ms": 30000,
         "protocol": "openai_responses",
-        "protocol_probe": ".agents/seainfra/probes/llm-test-2026-07-30T13-51-43-573Z.json"
+        "protocol_probe": ".agents/seainfra/probes/llm-test-2026-08-04T03-19-50-349Z.json"
       },
       "multimodal": {
         "base_url": "https://openresty-gateway.gpu-service.dev.seaart.dev/llm",
@@ -371,8 +371,7 @@
           "one_time"
         ],
         "channels": [
-          "Adyen",
-          "PayPal"
+          "PayerMax"
         ],
         "notes": {
           "doc": "星云配置文档（生产环境）.md",
@@ -383,15 +382,13 @@
         },
         "channel_check": {
           "method": "platform_api",
-          "checked_at": "2026-08-03T10:51:57.113Z",
+          "checked_at": "2026-08-04T03:31:27.033Z",
           "enabled_channels": [
-            "PayerMax",
-            "APPSTORE",
-            "GOOGLEPLAY"
+            "PayerMax"
           ],
-          "evidence_ref": ".agents/seainfra/evidence/payment-channel-check-2026-08-03T10-51-57-115Z.json",
-          "platform_confirmation_ref": "key-backed Open API method_list against production gateway with DemoX client_id",
-          "notes": "missing: Adyen,PayPal; methods observed: PayerMax,APPSTORE,GOOGLEPLAY"
+          "evidence_ref": ".agents/seainfra/probes/payment-sandbox-e2e-1785814236741.json",
+          "platform_confirmation_ref": "open_api/payment/method_list code=20000 channels=PAYERMAX count=3",
+          "notes": "Sandbox e2e: platform create_order + local sandbox HMAC notify for business callback/idempotency"
         }
       },
       "search_recommend": {
@@ -581,8 +578,7 @@
           "one_time"
         ],
         "channels": [
-          "Adyen",
-          "PayPal"
+          "PayerMax"
         ],
         "notes": {
           "doc": "星云配置文档（生产环境）.md",
@@ -592,15 +588,13 @@
         },
         "channel_check": {
           "method": "platform_api",
-          "checked_at": "2026-08-03T10:51:57.113Z",
+          "checked_at": "2026-08-04T03:31:27.033Z",
           "enabled_channels": [
-            "PayerMax",
-            "APPSTORE",
-            "GOOGLEPLAY"
+            "PayerMax"
           ],
-          "evidence_ref": ".agents/seainfra/evidence/payment-channel-check-2026-08-03T10-51-57-115Z.json",
-          "platform_confirmation_ref": "key-backed Open API method_list against production gateway with DemoX client_id",
-          "notes": "missing: Adyen,PayPal; methods observed: PayerMax,APPSTORE,GOOGLEPLAY"
+          "evidence_ref": ".agents/seainfra/probes/payment-sandbox-e2e-1785814236741.json",
+          "platform_confirmation_ref": "open_api/payment/method_list code=20000 channels=PAYERMAX count=3",
+          "notes": "Sandbox e2e: platform create_order + local sandbox HMAC notify for business callback/idempotency"
         }
       },
       "search_recommend": {

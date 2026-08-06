@@ -1,0 +1,51 @@
+{
+  "schemaVersion": 1,
+  "module": "payment",
+  "environment": "test",
+  "result": "passed",
+  "checkedAt": "2026-08-04T03:31:27.033Z",
+  "sourceRefs": [
+    ".agents/seainfra/probes/payment-sandbox-e2e-1785814236741.json",
+    "lib/payment/starry.ts",
+    "lib/payment/callbackProcess.ts",
+    "lib/payment/sandbox.ts",
+    "app/api/payments/callback/route.ts",
+    "app/api/payments/orders/route.ts",
+    "scripts/payment-sandbox-e2e.mjs",
+    ".agents/skills/seainfra-payment-check/SKILL.md"
+  ],
+  "checks": {
+    "static": {
+      "status": "passed",
+      "evidence": [
+        "credentials client_id/server_key/pubkey/jwt/gateway/sdk in config; channels=[PayerMax] business_types=[one_time]",
+        "signature helpers + callbackProcess + orderStore; routes orders/callback/GET order",
+        "node --import tsx --test lib/payment/starry.test.ts (signature unit tests)",
+        "validate payment --phase check empty missing (channel_check covers PayerMax)"
+      ]
+    },
+    "connectivity": {
+      "status": "passed",
+      "evidence": [
+        "method_list code=20000 count=3 channel=PAYERMAX (sandbox e2e step)",
+        "create_order platform success business_type=1 platform_status=1 is_sandbox=2",
+        "channel_check.method=platform_api enabled_channels=[PayerMax]"
+      ]
+    },
+    "e2e": {
+      "status": "passed",
+      "evidence": [
+        "sandbox callback success → order SUCCEEDED + fulfilledAt set (PAYMENT_SANDBOX_SIMULATE HMAC notify)",
+        "duplicate same event_id → duplicate=true status remains SUCCEEDED (idempotent fulfill)",
+        "bad signature → 401 code=40001; amount mismatch → 40005 order not SUCCEEDED",
+        "probe file: .agents/seainfra/probes/payment-sandbox-e2e-1785814236741.json"
+      ]
+    }
+  },
+  "notes": [
+    "Sandbox business callback uses HMAC notify (PAYMENT_SANDBOX_SIMULATE=1) because platform RSA private key is not distributed to merchants.",
+    "Platform create_order is real Open API; browser PayerMax card UI not automated this pass.",
+    "Do not enable PAYMENT_SANDBOX_SIMULATE in production deploy.",
+    "e2e report ok=true steps=6"
+  ]
+}

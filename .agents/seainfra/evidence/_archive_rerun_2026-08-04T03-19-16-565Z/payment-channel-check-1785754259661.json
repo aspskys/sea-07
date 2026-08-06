@@ -1,0 +1,64 @@
+{
+  "method": "payment_sdk",
+  "checked_at": "2026-08-03T10:50:56.866Z",
+  "requested_channels": [
+    "Adyen",
+    "PayPal"
+  ],
+  "client_id": "XF11rze2EAA17iA2glvnCa4",
+  "gateway_base_url": "https://publish-gateway.sc-api.saconsole.com",
+  "steps": [
+    {
+      "step": "create_order+order_info",
+      "ok": true,
+      "business_type": 1,
+      "order_status": 1,
+      "is_sandbox": 2,
+      "pay_method": null,
+      "sys_order_id_prefix": "014000016a…",
+      "cp_order_id_prefix": "CHK_msd3z753…"
+    },
+    {
+      "step": "client_cashier_apis",
+      "results": [
+        {
+          "path": "/common/payment/init_config",
+          "http": 404,
+          "dataPreview": "<html>\r\n<head><title>404 Not Found</title></head>\r\n<body>\r\n<center><h1>404 Not Found</h1></center>\r\n<hr><center>nginx/1.23.2</center>\r\n</body>\r\n</html>\r\n"
+        },
+        {
+          "path": "/common/payment/order_info",
+          "http": 404,
+          "dataPreview": "<html>\r\n<head><title>404 Not Found</title></head>\r\n<body>\r\n<center><h1>404 Not Found</h1></center>\r\n<hr><center>nginx/1.23.2</center>\r\n</body>\r\n</html>\r\n"
+        },
+        {
+          "path": "/common/payment/method_list",
+          "http": 404,
+          "dataPreview": "<html>\r\n<head><title>404 Not Found</title></head>\r\n<body>\r\n<center><h1>404 Not Found</h1></center>\r\n<hr><center>nginx/1.23.2</center>\r\n</body>\r\n</html>\r\n"
+        },
+        {
+          "path": "/common/payment/channel_method_list",
+          "http": 404,
+          "dataPreview": "<html>\r\n<head><title>404 Not Found</title></head>\r\n<body>\r\n<center><h1>404 Not Found</h1></center>\r\n<hr><center>nginx/1.23.2</center>\r\n</body>\r\n</html>\r\n"
+        }
+      ]
+    },
+    {
+      "step": "open_api_channel_list",
+      "path": "/open_api/payment/channel/list",
+      "http": 404,
+      "preview": "Cannot POST /open_api/payment/channel/list",
+      "note": "No server Open API channel list route (expect 404)."
+    }
+  ],
+  "enabled_channels": [],
+  "notes": [
+    "Open API create_order succeeded with server_key (credentials valid). Order unpaid (status=1); no charge completed.",
+    "Could not confirm Adyen/PayPal via cashier method_list response in this environment. Platform create_order works; channel names must be confirmed via Payment SDK UI or platform console/receipt."
+  ],
+  "missing_channels": [
+    "Adyen",
+    "PayPal"
+  ],
+  "ok": false
+}

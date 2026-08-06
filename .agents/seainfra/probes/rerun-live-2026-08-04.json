@@ -1,0 +1,22 @@
+{
+  "llmChat": {
+    "http": 200,
+    "out": "OK",
+    "id": "resp_MUOhSmnwSyFn3ilvHprS3n0AXJciaPXuSCEKJOwMjYhYMXgGkXSgh913x6-nvfLQNS5GlEiW2guEmbQ3B-CJOQoj509OiDLKt-x9pnvJclAq48ywPOz0J8FgC_eS3JU2mL4fyqkvJQtuRLHEkSxeYqoG_oE_cDhiWnw7EzfxGj20wQM0-WAiryTic-x2W4d6mcpDMbZXWMI6Bx-4o3cvqLqQQS0cVlsWi0epPf6qD8qzlCDrP3h3Lq0wUiytRd57NnzOIdX3-IilkV0=",
+    "err": null
+  },
+  "llmFail": {
+    "http": 404,
+    "body": "{\"error\":{\"code\":\"model_not_found\",\"message\":\"model not found\",\"param\":\"\",\"type\":\"not_found_error\"}}"
+  },
+  "safety": {
+    "ok": false,
+    "error": "This module cannot be imported from a Client Component module. It should only be used from a Server Component."
+  },
+  "files": {
+    "chat": true,
+    "safety": true,
+    "modal": true,
+    "dataSyncMap": true
+  }
+}

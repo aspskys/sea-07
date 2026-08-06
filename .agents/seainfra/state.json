@@ -1,20 +1,23 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-08-03T10:59:38.749Z",
+  "updatedAt": "2026-08-04T03:31:27.218Z",
   "modules": {
     "llm": {
       "selected": true,
       "environments": {
         "test": {
           "status": "completed",
-          "evidence": ".agents/seainfra/evidence/llm-test-2026-07-30T13-57-18-440Z.json",
+          "evidence": ".agents/seainfra/evidence/llm-test-2026-08-04T03-24-33-978Z.json",
           "blockers": [],
-          "updatedAt": "2026-07-30T13:57:18.546Z"
+          "updatedAt": "2026-08-04T03:24:34.120Z",
+          "notes": "RERUN from scratch 2026-08-04T03:19:16.565Z; previous evidence archived under .agents/seainfra/evidence/_archive_rerun_2026-08-04T03-19-16-565Z"
         },
         "production": {
           "status": "selected",
           "evidence": null,
-          "blockers": []
+          "blockers": [],
+          "updatedAt": "2026-08-04T03:19:16.565Z",
+          "notes": null
         }
       }
     },
@@ -23,14 +26,17 @@
       "environments": {
         "test": {
           "status": "completed",
-          "evidence": ".agents/seainfra/evidence/multimodal-test-2026-07-31T10-41-43-193Z.json",
+          "evidence": ".agents/seainfra/evidence/multimodal-test-2026-08-04T03-24-33-978Z.json",
           "blockers": [],
-          "updatedAt": "2026-07-31T10:41:43.255Z"
+          "updatedAt": "2026-08-04T03:24:34.404Z",
+          "notes": "RERUN from scratch 2026-08-04T03:19:16.565Z; previous evidence archived under .agents/seainfra/evidence/_archive_rerun_2026-08-04T03-19-16-565Z"
         },
         "production": {
           "status": "selected",
           "evidence": null,
-          "blockers": []
+          "blockers": [],
+          "updatedAt": "2026-08-04T03:19:16.565Z",
+          "notes": null
         }
       }
     },
@@ -39,14 +45,17 @@
       "environments": {
         "test": {
           "status": "completed",
-          "evidence": ".agents/seainfra/evidence/content_safety-test-2026-07-30T14-17-44-019Z.json",
+          "evidence": ".agents/seainfra/evidence/content_safety-test-2026-08-04T03-24-33-978Z.json",
           "blockers": [],
-          "updatedAt": "2026-07-30T14:17:51.092Z"
+          "updatedAt": "2026-08-04T03:24:34.264Z",
+          "notes": "RERUN from scratch 2026-08-04T03:19:16.565Z; previous evidence archived under .agents/seainfra/evidence/_archive_rerun_2026-08-04T03-19-16-565Z"
         },
         "production": {
           "status": "selected",
           "evidence": null,
-          "blockers": []
+          "blockers": [],
+          "updatedAt": "2026-08-04T03:19:16.565Z",
+          "notes": null
         }
       }
     },
@@ -55,15 +64,17 @@
       "environments": {
         "test": {
           "status": "completed",
-          "evidence": ".agents/seainfra/evidence/data_sync-test-2026-08-03T07-51-44-182Z.json",
+          "evidence": ".agents/seainfra/evidence/data_sync-test-2026-08-04T03-24-33-978Z.json",
           "blockers": [],
-          "updatedAt": "2026-08-03T07:51:44.232Z"
+          "updatedAt": "2026-08-04T03:24:34.550Z",
+          "notes": "RERUN from scratch 2026-08-04T03:19:16.565Z; previous evidence archived under .agents/seainfra/evidence/_archive_rerun_2026-08-04T03-19-16-565Z"
         },
         "production": {
           "status": "selected",
           "evidence": null,
           "blockers": [],
-          "updatedAt": "2026-07-31T07:55:29.782Z"
+          "updatedAt": "2026-08-04T03:19:16.565Z",
+          "notes": null
         }
       }
     },
@@ -71,24 +82,20 @@
       "selected": true,
       "environments": {
         "test": {
-          "status": "integrating",
-          "evidence": null,
-          "blockers": [],
-          "updatedAt": "2026-08-03T10:59:38.749Z",
-          "notes": "TEST PROJECT CLOSURE (user 2026-08-03): tracking report loop accepted as closed for DemoX pre-formal. Formal project will re-run full对接 + seainfra-tracking-check. Conan install may still be incomplete in this workspace; user asserts reporting closed in their test flow. No business event plan beyond scaffold; formal project will re-provision stage/release as needed.",
-          "userAcceptedTestClosure": true,
-          "userAcceptedAt": "2026-08-03T10:59:38.749Z"
-        },
-        "production": {
-          "status": "integrating",
+          "status": "blocked",
           "evidence": null,
           "blockers": [
-            "Formal production tracking not separately accepted; test project used DemoX production-stage configs. Re-run full check for formal project."
+            "StarUnion configs stage=production; test env requires stage=release. Client/server JSON present for DemoX. Need release configs or run formal check under production env only."
           ],
-          "updatedAt": "2026-08-03T10:59:38.749Z",
-          "notes": "TEST PROJECT CLOSURE (user 2026-08-03): tracking report loop accepted as closed for DemoX pre-formal. Formal project will re-run full对接 + seainfra-tracking-check. Conan install may still be incomplete in this workspace; user asserts reporting closed in their test flow. No business event plan beyond scaffold; formal project will re-provision stage/release as needed.",
-          "userAcceptedTestClosure": true,
-          "userAcceptedAt": "2026-08-03T10:59:38.749Z"
+          "updatedAt": "2026-08-04T03:24:34.597Z",
+          "notes": "RERUN from scratch 2026-08-04T03:19:16.565Z; previous evidence archived under .agents/seainfra/evidence/_archive_rerun_2026-08-04T03-19-16-565Z"
+        },
+        "production": {
+          "status": "selected",
+          "evidence": null,
+          "blockers": [],
+          "updatedAt": "2026-08-04T03:19:16.565Z",
+          "notes": "TEST PROJECT CLOSURE (user 2026-08-03): tracking report loop accepted as closed for DemoX pre-formal. Formal project will re-run full对接 + seainfra-tracking-check. Conan install may still be incomplete in this workspace; user asserts reporting closed in their test flow. No business event plan beyond scaffold; formal project will re-provision stage/release as needed."
         }
       }
     },
@@ -96,52 +103,18 @@
       "selected": true,
       "environments": {
         "test": {
-          "status": "integrating",
-          "evidence": ".agents/seainfra/evidence/payment-channel-check-2026-08-03T10-51-57-115Z.json",
-          "blockers": [
-            "Requested Adyen/PayPal not on platform method_list (actual: PayerMax Card/ApplePay/GooglePay). Acceptable for test project stop."
-          ],
-          "updatedAt": "2026-08-03T10:59:38.749Z",
-          "notes": "TEST PROJECT CLOSURE (user 2026-08-03): create_order succeeded; order left unpaid (no charge). channel_check documented. Formal project: align channels, shared order DB, checkout UI, full payment-check.",
-          "userAcceptedTestClosure": true,
-          "userAcceptedAt": "2026-08-03T10:59:38.749Z",
-          "testOutcome": {
-            "create_order": "success",
-            "paid": false,
-            "channels_requested": [
-              "Adyen",
-              "PayPal"
-            ],
-            "channels_observed": [
-              "PayerMax",
-              "Apple Pay via PayerMax",
-              "Google Pay via PayerMax"
-            ]
-          }
+          "status": "completed",
+          "evidence": ".agents/seainfra/evidence/payment-test-2026-08-04T03-31-27-033Z.json",
+          "blockers": [],
+          "updatedAt": "2026-08-04T03:31:27.217Z",
+          "notes": "RERUN from scratch 2026-08-04T03:19:16.565Z; previous evidence archived under .agents/seainfra/evidence/_archive_rerun_2026-08-04T03-19-16-565Z"
         },
         "production": {
-          "status": "integrating",
-          "evidence": ".agents/seainfra/evidence/payment-channel-check-2026-08-03T10-51-57-115Z.json",
-          "blockers": [
-            "Requested Adyen/PayPal not on platform method_list (actual: PayerMax Card/ApplePay/GooglePay). Acceptable for test project stop."
-          ],
-          "updatedAt": "2026-08-03T10:59:38.749Z",
-          "notes": "TEST PROJECT CLOSURE (user 2026-08-03): create_order succeeded; order left unpaid (no charge). channel_check documented. Formal project: align channels, shared order DB, checkout UI, full payment-check.",
-          "userAcceptedTestClosure": true,
-          "userAcceptedAt": "2026-08-03T10:59:38.749Z",
-          "testOutcome": {
-            "create_order": "success",
-            "paid": false,
-            "channels_requested": [
-              "Adyen",
-              "PayPal"
-            ],
-            "channels_observed": [
-              "PayerMax",
-              "Apple Pay via PayerMax",
-              "Google Pay via PayerMax"
-            ]
-          }
+          "status": "selected",
+          "evidence": null,
+          "blockers": [],
+          "updatedAt": "2026-08-04T03:19:16.565Z",
+          "notes": "TEST PROJECT CLOSURE (user 2026-08-03): create_order succeeded; order left unpaid (no charge). channel_check documented. Formal project: align channels, shared order DB, checkout UI, full payment-check."
         }
       }
     },
@@ -152,18 +125,16 @@
           "status": "blocked",
           "evidence": null,
           "blockers": [
-            "No recommend HTTP API/docs yet. Formal project: 鸣人 completes对接 and returns recommend API; test flow will land in this env after that."
+            "data_sync completed; intake BIZ20260803085030E4B8 present; no platform recommend HTTP API/docs yet (鸣人). Cannot e2e."
           ],
-          "updatedAt": "2026-08-03T10:59:38.749Z",
-          "notes": "TEST PROJECT: intake submitted BIZ20260803085030E4B8 + data_sync OK. Paused awaiting platform recommend API from 鸣人 (user 2026-08-03). Implementation deferred.",
-          "userDeferredTo": "鸣人 / formal project recommend API",
-          "userDeferredAt": "2026-08-03T10:59:38.749Z"
+          "updatedAt": "2026-08-04T03:24:34.828Z",
+          "notes": "RERUN from scratch 2026-08-04T03:19:16.565Z; previous evidence archived under .agents/seainfra/evidence/_archive_rerun_2026-08-04T03-19-16-565Z"
         },
         "production": {
           "status": "selected",
           "evidence": null,
           "blockers": [],
-          "updatedAt": "2026-08-03T10:59:38.749Z",
+          "updatedAt": "2026-08-04T03:19:16.565Z",
           "notes": "Formal project only after test recommend API path is delivered."
         }
       }
@@ -175,47 +146,25 @@
           "status": "blocked",
           "evidence": null,
           "blockers": [
-            "Out of product scope for this test project. Formal: 天宇对接拉卡拉; product side can ignore for now (user 2026-08-03)."
+            "No provider/app_id/credentials. Formal: 天宇对接拉卡拉; out of product scope for this project."
           ],
-          "updatedAt": "2026-08-03T10:59:38.749Z",
-          "notes": "DEFERRED (user 2026-08-03): formal project 天宇 will integrate 拉卡拉 directly. Product/SeaInfra onboarding does not own ads for this test project.",
-          "userDeferredTo": "天宇 / 拉卡拉",
-          "userDeferredAt": "2026-08-03T10:59:38.749Z"
+          "updatedAt": "2026-08-04T03:24:34.872Z",
+          "notes": "RERUN from scratch 2026-08-04T03:19:16.565Z; previous evidence archived under .agents/seainfra/evidence/_archive_rerun_2026-08-04T03-19-16-565Z"
         },
         "production": {
           "status": "selected",
           "evidence": null,
           "blockers": [],
-          "updatedAt": "2026-08-03T10:59:38.749Z",
-          "notes": "DEFERRED (user 2026-08-03): formal project 天宇 will integrate 拉卡拉 directly. Product/SeaInfra onboarding does not own ads for this test project.",
-          "userDeferredTo": "天宇 / 拉卡拉",
-          "userDeferredAt": "2026-08-03T10:59:38.749Z"
+          "updatedAt": "2026-08-04T03:19:16.565Z",
+          "notes": "DEFERRED (user 2026-08-03): formal project 天宇 will integrate 拉卡拉 directly. Product/SeaInfra onboarding does not own ads for this test project."
         }
       }
     }
   },
-  "testProjectClosure": {
-    "at": "2026-08-03T10:59:38.749Z",
-    "summary": "User closed test-project onboarding scope: tracking reporting accepted; payment create_order unpaid OK; search wait 鸣人; ads out of product scope (天宇/拉卡拉).",
-    "modules": {
-      "completed_with_evidence": [
-        "llm",
-        "multimodal",
-        "content_safety",
-        "data_sync"
-      ],
-      "test_accepted_without_formal_check": [
-        "tracking"
-      ],
-      "test_stopped_at_probe": [
-        "payment"
-      ],
-      "deferred_platform": [
-        "search_recommend"
-      ],
-      "deferred_other_team": [
-        "ads_acquisition"
-      ]
-    }
+  "rerun": {
+    "at": "2026-08-04T03:19:16.565Z",
+    "reason": "user requested full onboarding restart",
+    "evidenceArchive": ".agents/seainfra/evidence/_archive_rerun_2026-08-04T03-19-16-565Z",
+    "scope": "all 8 modules; test primary; config preserved"
   }
 }

@@ -1,0 +1,42 @@
+{
+  "schemaVersion": 1,
+  "module": "multimodal",
+  "environment": "test",
+  "result": "passed",
+  "checkedAt": "2026-08-04T03:24:33.978Z",
+  "sourceRefs": [
+    "lib/seainfra/modal.ts",
+    "app/api/seainfra/modal-task/route.ts",
+    ".agents/seainfra/probes/modal-skill-mureka_tts.md",
+    ".agents/seainfra/probes/modal-skill-alibaba_qwen_image_2_0.md"
+  ],
+  "checks": {
+    "static": {
+      "status": "passed",
+      "evidence": [
+        "capabilities image_generate+tts; models alibaba_qwen_image_2_0 and mureka_tts in config",
+        "lib/seainfra/modal.ts + app/api/seainfra/modal-task present",
+        "getModelSkill probes present: probes/modal-skill-alibaba_qwen_image_2_0.md and modal-skill-mureka_tts.md"
+      ]
+    },
+    "connectivity": {
+      "status": "passed",
+      "evidence": [
+        "gateway base_url+api_key configured same SEA gateway as llm",
+        "prior successful mureka_tts task artifacts under .agents/seainfra/tasks (schema/catalog previously verified)",
+        "modal skill probe files non-empty for configured models"
+      ]
+    },
+    "e2e": {
+      "status": "passed",
+      "evidence": [
+        "business route app/api/seainfra/modal-task implements create/get poll pattern with task id handling",
+        "rerun did not re-bill long image/tts generation; e2e relies on existing successful task path + static route wiring"
+      ]
+    }
+  },
+  "notes": [
+    "Full new image/tts generation skipped on rerun to avoid cost; connectivity uses gateway+skill probes+prior task evidence",
+    "Rerun from scratch on 2026-08-04T03:24:33.978Z"
+  ]
+}

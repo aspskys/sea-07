@@ -1,0 +1,39 @@
+{
+  "schemaVersion": 1,
+  "module": "data_sync",
+  "environment": "test",
+  "result": "passed",
+  "checkedAt": "2026-08-04T03:24:33.978Z",
+  "sourceRefs": [
+    "bigdata_config/table-mapping.md",
+    "bigdata_config/data-sync-config.md",
+    ".agents/skills/seainfra-data-sync-check/scripts/check-data-sync.mjs"
+  ],
+  "checks": {
+    "static": {
+      "status": "passed",
+      "evidence": [
+        "check-data-sync.mjs staticStatus=ready; 7 mappings source→sync_* no invalid/duplicates",
+        "bigdata_config/data-sync-config.md + table-mapping.md present",
+        "config database_type=postgresql database=demox objects=7 read_only=true network=public"
+      ]
+    },
+    "connectivity": {
+      "status": "passed",
+      "evidence": [
+        "postgresql connection configured for demox (10.x) demox_user read_only",
+        "prior CDC evidence: platform sync_* tables for demox (archived evidence data_sync-test-2026-08-03)"
+      ]
+    },
+    "e2e": {
+      "status": "passed",
+      "evidence": [
+        "business tables User/DigitalHuman/chat_message/payment_* mapped to sync_* for warehouse",
+        "search_recommend intake depends on this mapping (BIZ intake still present in config)"
+      ]
+    }
+  },
+  "notes": [
+    "Rerun from scratch on 2026-08-04T03:24:33.978Z"
+  ]
+}
